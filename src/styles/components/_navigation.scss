@@ -1,0 +1,44 @@
+.header-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	a {
+		text-decoration: none;
+	}
+}
+
+.header-links {
+	display: flex;
+}
+
+.header-link {
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	margin-right: 27px;
+	&:last-of-type {
+		margin-right: 0;
+	}
+	img {
+		display: inline-block;
+		margin-right: 8px;
+		width: 34px;
+		height: 34px;
+	}
+
+	&.tour {
+		color: #FF1D6C;
+	}
+	&.hotel {
+		color: #FFB72C;
+	}
+	&.traffic {
+		color: #007350;
+	}
+
+	&:hover,
+	&.active {
+		text-decoration: underline;
+	}
+}

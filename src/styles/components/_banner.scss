@@ -1,0 +1,37 @@
+.banner {
+	position: relative;
+	min-height: 536px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&::before {
+		content: '';
+		width: 50%;
+		position: absolute;
+		left: 50%;
+		height: 52px;
+		bottom: 0px;
+		background: #0D0B0C;
+		opacity: 0.3;
+		filter: blur(11px);
+		z-index: -1;
+	}
+	&::after {
+		content: '';
+		width: 50%;
+		position: absolute;
+		right: 50%;
+		height: 52px;
+		bottom: 0px;
+		background: #0D0B0C;
+		opacity: 0.3;
+		filter: blur(11px);
+		z-index: -1;
+	}
+}
+
+.search-tip {
+	color: #fff;
+	font-size: 14px;
+}
