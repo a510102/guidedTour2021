@@ -1,6 +1,5 @@
-import { useContext } from 'react';
+import React, { useState } from 'react';
 
-import { StoreAction, StoreContext } from '../../../store/Global';
 import cityList from '../../../localData/city.json';
 
 import bannerTitle from '../../../images/banner/banner-title.png';
@@ -16,8 +15,7 @@ interface Props {
 
 export function Banner(props: Props) {
 	const { isMatchHome, isMatchTourHotel } = props;
-	const { state, dispatch } = useContext(StoreContext);
-
+	const [keyWord, setKeyWord] = useState<string>('');
 	const placeCategoryList = [
 		{
 			name: '景點',
@@ -40,9 +38,27 @@ export function Banner(props: Props) {
 		},
 	];
 
-	const handleChangeCategory: (category: string) => void = category => {
+	const handleChangeCategory: (
+		e: React.ChangeEvent<HTMLSelectElement>
+	) => void = e => {
+		const { value } = e.target;
+	};
 
-	}
+	const handleChangeCity: (
+		e: React.ChangeEvent<HTMLSelectElement>
+	) => void = e => {
+		const { value } = e.target;
+	};
+
+	const handleChangeKeyWord : (e: React.ChangeEvent<HTMLInputElement
+		>) => void = e => {
+			const { value } = e.target;
+			setKeyWord(value);
+	};
+
+	const searchDataByKeyWord: () => void = () => {
+		
+	};
 
 	return (
 		<div 
@@ -56,8 +72,12 @@ export function Banner(props: Props) {
 				<img src={bannerTitle} alt="search key word" />
 				<p className="search-tip">台北、台中、台南、屏東、宜蘭……遊遍台灣</p>
 				<div>
-					<input placeholder="搜尋關鍵字" />
-					<button>
+					<input
+						placeholder="搜尋關鍵字"
+						value={keyWord}
+						onChange={handleChangeKeyWord}
+					/>
+					<button onClick={searchDataByKeyWord}>
 						<img src={searchIcon} alt="search key word" />
 					</button>
 				</div>
@@ -66,14 +86,14 @@ export function Banner(props: Props) {
 						<select onChange={handleChangeCategory}>
 							<option value="">類別</option>
 							{
-								(isMatchHome ? placeCategoryList : hotelCategoryList).map(category => (
-									<option value={category.value}>{category.name}</option>
+								(isMatchHome ? placeCategoryList : hotelCategoryList).map((category, i) => (
+									<option key={i} value={category.value}>{category.name}</option>
 								)) 
 							}
 						</select>
 					)}
-					<select>
-						<option>不分縣市</option>
+					<select onChange={handleChangeCity}>
+						<option value="">不分縣市</option>
 						{cityList.map(city => (
 							<option 
 								key={city.CityCode} 

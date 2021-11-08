@@ -1,16 +1,16 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import { Layout } from './components/Layout';
 import { TourPlace } from './pages/TourPlace/Loadable';
 import { TourHotel } from './pages/TourHotel/Loadable';
 import { TourTraffic } from './pages/TourTraffic/Loadable';
 import { NotFound } from './pages/NotFound/Loadable';
-import { StoreProvider } from '../store/Global';
-
+import { store } from '../store';
 
 function App() {
   return (
-    <StoreProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
@@ -21,7 +21,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </StoreProvider>
+    </Provider>
   );
 }
 
