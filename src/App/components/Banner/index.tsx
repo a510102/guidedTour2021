@@ -11,10 +11,19 @@ import { TourType } from '../../../types';
 interface Props {
 	isMatchTourHotel: boolean;
 	isMatchHome: boolean;
+	handleChangeKeyWord: (keyWord: string) => void;
+	handleChangeCity: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+	handleChangeCategory: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export function Banner(props: Props) {
-	const { isMatchHome, isMatchTourHotel } = props;
+	const {
+		isMatchHome,
+		isMatchTourHotel,
+		handleChangeCategory,
+		handleChangeCity,
+		handleChangeKeyWord,
+	} = props;
 	const [keyWord, setKeyWord] = useState<string>('');
 	const placeCategoryList = [
 		{
@@ -38,26 +47,15 @@ export function Banner(props: Props) {
 		},
 	];
 
-	const handleChangeCategory: (
-		e: React.ChangeEvent<HTMLSelectElement>
-	) => void = e => {
-		const { value } = e.target;
-	};
-
-	const handleChangeCity: (
-		e: React.ChangeEvent<HTMLSelectElement>
-	) => void = e => {
-		const { value } = e.target;
-	};
-
-	const handleChangeKeyWord : (e: React.ChangeEvent<HTMLInputElement
-		>) => void = e => {
+	const handleChangeInputKeyWord : (
+			e: React.ChangeEvent<HTMLInputElement>
+		) => void = e => {
 			const { value } = e.target;
 			setKeyWord(value);
 	};
 
 	const searchDataByKeyWord: () => void = () => {
-		
+		handleChangeKeyWord(keyWord);
 	};
 
 	return (
@@ -75,7 +73,7 @@ export function Banner(props: Props) {
 					<input
 						placeholder="搜尋關鍵字"
 						value={keyWord}
-						onChange={handleChangeKeyWord}
+						onChange={handleChangeInputKeyWord}
 					/>
 					<button onClick={searchDataByKeyWord}>
 						<img src={searchIcon} alt="search key word" />
