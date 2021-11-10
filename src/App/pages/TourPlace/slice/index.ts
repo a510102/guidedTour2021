@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TourActivityType, TourPlaceType } from './type';
 
 interface TourPlaceStore {
-	tourScenicSpots: any[];
-	tourActivities: any[];
+	tourScenicSpots: TourPlaceType[];
+	tourActivities: TourActivityType[];
 	isFetching: boolean;
 	error: any;
 };
@@ -23,7 +24,7 @@ const tourPlaceSlice = createSlice({
 		},
 		getTourScenicSpotSuccess (state, action: PayloadAction<any>) {
 			state.isFetching = false;
-			console.log(action.payload);
+			state.tourScenicSpots = action.payload;
 		},
 		getTourScenicSpotFailed (state, action: PayloadAction<any>) {
 			state.isFetching = false;
@@ -34,7 +35,7 @@ const tourPlaceSlice = createSlice({
 		},
 		getTourActivitiesSuccess (state, action: PayloadAction<any>) {
 			state.isFetching = false;
-			console.log(action.payload);
+			state.tourActivities = action.payload;
 		},
 		getTourActivitiesFailed (state, action: PayloadAction<any>) {
 			state.isFetching = false;

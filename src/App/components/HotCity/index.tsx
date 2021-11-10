@@ -44,12 +44,12 @@ export function HotCity(props: Props) {
 				<span>熱門城市</span>
 			</h4>
 			<div className="select-hot-city">
-				<div
+				{cityPage === CityPage.PageTwo && <button
 					className="select-hot-city-btn pre"
 					onClick={handlePrePage}
 				>
 					<img src={pre} alt="icon" />
-				</div>
+				</button>}
 				{
 					cityList.map((city, index) => (
 						(index < CityPage.limit * cityPage) && 
@@ -71,12 +71,12 @@ export function HotCity(props: Props) {
 						</div>
 					) : null)
 				}
-				<div
+				{cityPage === CityPage.PageOne &&<button
 					className="select-hot-city-btn next"
 					onClick={handleNextPage}
 				>
 					<img src={next} alt="icon" />
-				</div>
+				</button>}
 			</div>
 		</div>
 	);
