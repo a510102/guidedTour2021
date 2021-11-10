@@ -22,7 +22,7 @@ export const globalStore = createSlice({
     },
     changeSelectCity(state, action: PayloadAction<{city: string}>) {
       const { city } = action.payload;
-      state.selectedCategory = city;
+      state.selectedCity = city;
     },
     changeSelectCategory(state, action: PayloadAction<{category: string}>) {
       const { category } = action.payload;

@@ -1,0 +1,12 @@
+.select-hot-city {
+	display: flex;
+	position: relative;
+	margin: auto;
+}
+
+.select-hot-city-btn {
+	position: absolute;
+	&.next {
+		right: 0;
+	}
+}
