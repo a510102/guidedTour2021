@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import globaStoreReducer from './globaStore';
+import globalStoreReducer from './globalStore';
 
 export const store = configureStore ({
   reducer: {
-    globa: globaStoreReducer,
+    global: globalStoreReducer,
   }
 });
 

@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface GlobaStore {
+interface GlobalStore {
   keyWord: string;
   selectedCity: string;
   selectedCategory: string;
 }
 
-const initialState: GlobaStore = {
+const initialState: GlobalStore = {
   keyWord: '',
   selectedCity: '',
   selectedCategory: '',
 };
 
-export const gllobaStore = createSlice({
-  name: 'globa',
+export const globalStore = createSlice({
+  name: 'global',
   initialState,
   reducers: {
     changeKeyWord(state, action: PayloadAction<{keyWord: string}>) {
@@ -35,6 +35,6 @@ export const {
   changeKeyWord, 
   changeSelectCategory, 
   changeSelectCity 
-} = gllobaStore.actions;
+} = globalStore.actions;
 
-export default gllobaStore.reducer;
+export default globalStore.reducer;
