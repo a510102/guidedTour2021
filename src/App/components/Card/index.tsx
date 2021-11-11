@@ -11,7 +11,7 @@ export function Card(props: Props) {
 	return (
 		<div className="card">
 			<div className="card-img">
-				<img src={imgUrl} alt="card pic" />
+				{imgUrl && <img src={imgUrl} alt="card pic" />}
 			</div>
 			<p>{cardTitle}</p>
 			<div className="card-position">

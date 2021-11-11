@@ -19,7 +19,8 @@ import { TourActivity } from './feature/TourActivity';
 import { TourType } from '../../../types';
 
 enum TourShowDataNumber {
-	Default = 10,
+	DefaultScenicSpot = 10,
+	DefaultActiity = 4,
 }
 
 export default function TourPlace () {
@@ -51,8 +52,8 @@ export default function TourPlace () {
 		getTourActivity(globalCity);
 	}, [globalCity]);
 	const isSelected = globalCity || globalCity || globalKeyWord;
-	const filterTourActivityList = tourActivities.filter((activity, index) => isSelected ? activity : index < TourShowDataNumber.Default);
-	const filterTourScenicSpotList = tourScenicSpots.filter((activity, index) => isSelected ? activity : index < TourShowDataNumber.Default);
+	const filterTourActivityList = tourActivities.filter((activity, index) => isSelected ? activity : index < TourShowDataNumber.DefaultActiity);
+	const filterTourScenicSpotList = tourScenicSpots.filter((activity, index) => isSelected ? activity : index < TourShowDataNumber.DefaultScenicSpot);
 
 	return (
 		<>
