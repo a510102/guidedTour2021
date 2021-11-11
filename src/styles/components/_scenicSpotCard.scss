@@ -1,0 +1,73 @@
+.scenic-spot-card {
+	width: 522px;
+	min-height: 228px;
+	display: flex;
+	padding: 16px;
+	box-shadow: 0px 4px 3px 0px #0D0B0C33;
+	box-sizing: border-box;
+	margin-bottom: 48px;
+	background: #fff;
+
+	.card-img {
+		width: 187px;
+		min-width: 187px;
+		height: 194px;
+		margin-right: 16px;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	.card-content {
+		width: 278px;
+	}
+
+	.card-description {
+		width: 278px;
+		margin-top: 14px;
+		font-size: 14px;
+		line-height: 21px;
+		color: #ACACAC;
+		overflow:hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 4; //行數
+		-webkit-box-orient: vertical;
+		white-space: normal;
+		margin-bottom: 14px;
+	}
+
+	.card-other-info {
+		display: flex;
+		width: 100%;
+		font-size: 14px;
+		line-height: 21px;
+	}
+
+	.card-map {
+		display: flex;
+		align-items: center;
+		width: 50%;
+		min-width: 50%;
+		span {
+			width: 88px;
+			overflow:hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		img {
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			margin-right: 8px;
+		}
+	}
+
+	.card-btn {
+		padding: 9.5px 32px;
+		color: #ff1D6c;
+		border: 1px solid #ff1D6c;
+		border-radius: 8px;
+		cursor: pointer;
+	}
+}

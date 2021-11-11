@@ -19,7 +19,7 @@ const tourPlaceSlice = createSlice({
 	name: 'tourPlace',
 	initialState,
 	reducers: {
-		getTourScenicSpot (state, action: PayloadAction<{city?: string}>) {
+		getTourScenicSpot (state, action: PayloadAction<{city?: string; top?: string}>) {
 			state.isFetching = true;
 		},
 		getTourScenicSpotSuccess (state, action: PayloadAction<any>) {
@@ -30,7 +30,7 @@ const tourPlaceSlice = createSlice({
 			state.isFetching = false;
 			console.warn(action.payload);
 		},
-		getTourActivities (state, action: PayloadAction<{city?: string}>) {
+		getTourActivities (state, action: PayloadAction<{city?: string; top?: string}>) {
 			state.isFetching = true;
 		},
 		getTourActivitiesSuccess (state, action: PayloadAction<any>) {

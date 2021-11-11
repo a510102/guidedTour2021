@@ -12,10 +12,16 @@ button {
 	padding: 0;
 	cursor: pointer;
 }
+.app {
+	background: #F6F7FB;
+}
 @import './components/layout';
 @import './components/navigation';
 @import './components/banner';
 @import './components/hotCity';
 @import './components/card';
+@import './components/scenicSpotCard';
+@import './components/footer';
+@import './components//select';
 
 @import './page/tourScenicSpot'

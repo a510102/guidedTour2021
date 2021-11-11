@@ -19,8 +19,8 @@ import { TourActivity } from './feature/TourActivity';
 import { TourType } from '../../../types';
 
 enum TourShowDataNumber {
-	DefaultScenicSpot = 10,
-	DefaultActiity = 4,
+	DefaultScenicSpot = 4,
+	DefaultActivity = 10,
 }
 
 export default function TourPlace () {
@@ -35,12 +35,12 @@ export default function TourPlace () {
 	const tourActivities = useAppSelector(selectTourActivities);
 	const tourScenicSpots = useAppSelector(selectTourScenicSpots);
 
-	const getTourPlace: (city?: string, keyWord?: string) => void = (city, keyWord) => {
-		dispatch(getTourScenicSpot({city}));
+	const getTourPlace: (city?: string, top?: string, keyWord?: string) => void = (city, top, keyWord) => {
+		dispatch(getTourScenicSpot({city, top}));
 	};
 
-	const getTourActivity: (city?: string, keyWord?: string) => void = (city, keyWord) => {
-		dispatch(getTourActivities({city}));
+	const getTourActivity: (city?: string, top?: string, keyWord?: string) => void = (city, top, keyWord) => {
+		dispatch(getTourActivities({city, top}));
 	};
 
 	const handleChangeCity: (city: string) => void = city => {
@@ -48,21 +48,26 @@ export default function TourPlace () {
 	}
 
 	useEffect(() => {
-		getTourPlace(globalCity);
-		getTourActivity(globalCity);
-	}, [globalCity]);
+		getTourPlace('', TourShowDataNumber.DefaultScenicSpot.toString());
+		getTourActivity('', TourShowDataNumber.DefaultActivity.toString());
+	}, []);
+
+	// useEffect(() => {
+	// 	getTourPlace(globalCity);
+	// 	getTourActivity(globalCity);
+	// }, [globalCity]);
+
 	const isSelected = globalCity || globalCity || globalKeyWord;
-	const filterTourActivityList = tourActivities.filter((activity, index) => isSelected ? activity : index < TourShowDataNumber.DefaultActiity);
+	const filterTourActivityList = tourActivities.filter((activity, index) => isSelected ? activity : index < TourShowDataNumber.DefaultActivity);
 	const filterTourScenicSpotList = tourScenicSpots.filter((activity, index) => isSelected ? activity : index < TourShowDataNumber.DefaultScenicSpot);
 
 	return (
-		<>
-			<main>TourPlace</main>
+		<main>
 			{!isSelected && (
 				<HotCity handleChangeCity={handleChangeCity} />
-			)}
-			{(globalCategory === TourType.TourActive || !globalCategory) && (<TourActivity filterTourActivityList={filterTourActivityList} />)}
+				)}
 			{(globalCategory === TourType.TourPlace || !globalCategory) && <TourScenicSpot filterTourScenicSpotList={filterTourScenicSpotList} />}
-		</>
+			{(globalCategory === TourType.TourActive || !globalCategory) && (<TourActivity filterTourActivityList={filterTourActivityList} />)}
+		</main>
 	)
 }

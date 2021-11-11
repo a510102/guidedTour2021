@@ -1,7 +1,8 @@
 import jsSHA from 'jssha';
 
 const TOURISM_URL = 'https://ptx.transportdata.tw/MOTC';
-const DATA_TYPE = '?$format=JSON';
+const DATA_TYPE = 'JSON';
+const GOOGLE_MAP_URL = 'https://maps.googleapis.com/maps/api/geocode/json?';
 
 export type APiResponseType = {
 	status?: string;
@@ -28,9 +29,10 @@ const GetAuthorizationHeader = () => {
 
 const fetchData = async (
 		url: string, 
-		method?:string, 
+		top?: string,
+		format?: string,
 		data?: any, 
-		format?: string
+		method?:string, 
 	) => {
 	try {
 		const fetchOptions = {
@@ -38,7 +40,9 @@ const fetchData = async (
 			header: GetAuthorizationHeader(),
 			method: method || 'GET',
 		};
-		const response = await fetch(`${url}${format || DATA_TYPE}`, fetchOptions);
+		console.log(fetchOptions);
+		const query = `?$format=${format || DATA_TYPE}&$top=${top|| ''}`;
+		const response = await fetch(`${url}${query}`, fetchOptions);
 		const { status } = response;
 		if (status !== 200) {
 			console.warn(response);
@@ -63,22 +67,34 @@ const fetchData = async (
 	}
 }
 
-export const fetchScenicSpot = async (city?: string) => {
-	const response = await fetchData(`${TOURISM_URL}/v2/Tourism/ScenicSpot${city ? `/${city}`: ''}`);
+export const fetchScenicSpot = async (city?: string, top?:string) => {
+	const response = await fetchData(
+		`${TOURISM_URL}/v2/Tourism/ScenicSpot${city ? `/${city}`: ''}`,
+		top,
+	);
 	return response;
 };
 
-export const fetchActivity = async (city?: string) => {
-	const response = await fetchData(`${TOURISM_URL}/v2/Tourism/Activity${city ? `/${city}`: ''}`);
+export const fetchActivity = async (city?: string, top?:string) => {
+	const response = await fetchData(
+		`${TOURISM_URL}/v2/Tourism/Activity${city ? `/${city}`: ''}`,
+		top,
+	);
 	return response;
 }
 
-export const fetchRestaurant = async (city?: string) => {
-	const response = await fetchData(`${TOURISM_URL}/v2/Tourism/Restaurant${city ? `/${city}`: ''}`);
+export const fetchRestaurant = async (city?: string, top?:string) => {
+	const response = await fetchData(
+		`${TOURISM_URL}/v2/Tourism/Restaurant${city ? `/${city}`: ''}`,
+		top,
+	);
 	return response;
 }
 
-export const fetchHotel = async (city?: string) => {
-	const response = await fetchData(`${TOURISM_URL}/v2/Tourism/Hotel${city ? `/${city}`: ''}`);
+export const fetchHotel = async (city?: string, top?:string) => {
+	const response = await fetchData(
+		`${TOURISM_URL}/v2/Tourism/Hotel${city ? `/${city}`: ''}`,
+		top,
+	);
 	return response;
 }

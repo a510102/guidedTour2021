@@ -15,10 +15,10 @@ import {
 	APiResponseType,
 } from '../../../Api';
 
-function* fetchScenicSpotSaga(action: PayloadAction<{city?: string}>) {
+function* fetchScenicSpotSaga(action: PayloadAction<{city?: string; top?: string;}>) {
 	try {
-		const { city } = action.payload;
-		const response: APiResponseType = yield call(fetchScenicSpot, city);
+		const { city, top } = action.payload;
+		const response: APiResponseType = yield call(fetchScenicSpot, city, top);
 		if (!response.success) {
 			throw response.data;
 		}
@@ -28,10 +28,10 @@ function* fetchScenicSpotSaga(action: PayloadAction<{city?: string}>) {
 	}
 }
 
-function* fetchActivitySaga(action: PayloadAction<{city?: string}>) {
+function* fetchActivitySaga(action: PayloadAction<{city?: string; top?: string;}>) {
 	try {
-		const { city } = action.payload;
-		const response: APiResponseType = yield call(fetchActivity, city);
+		const { city, top } = action.payload;
+		const response: APiResponseType = yield call(fetchActivity, city, top);
 		if (!response.success) {
 			throw response.data;
 		}

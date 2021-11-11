@@ -7,7 +7,7 @@ type TourPicture = {
 	PictureUrl3?: string;
 }
 
-export type TourActivityType = {
+export type TourPlaceType = {
 	Address: string;
 	Description: string;
 	DescriptionDetail: string;
@@ -15,12 +15,13 @@ export type TourActivityType = {
 	Phone: string;
 	Picture: TourPicture;
 	TicketInfo: string;
-	UpdateTime: string;
+	OpenTime: string;
 }
 
-export type TourPlaceType = {
+export type TourActivityType = {
 	Name: string;
 	Address: string;
 	City: string;
 	Picture: TourPicture;
+	Organizer: string;
 }

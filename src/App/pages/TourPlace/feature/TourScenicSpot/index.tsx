@@ -1,7 +1,7 @@
-import { Card } from "../../../../components/Card";
+import { ScenicSpotCard } from '../../components/ScenicSpotCard';
 import { TourPlaceType } from "../../slice/type";
 
-import titleIcon from '../../../../../images/card/card-title.svg';
+import titleIcon from '../../../../../images/global/Vector.svg';
 
 interface Props {
 	filterTourScenicSpotList: TourPlaceType[];
@@ -12,15 +12,14 @@ export function TourScenicSpot(props: Props) {
 	return (
 		<div className="tour-scenic-spot">
 			<h4><img src={titleIcon} alt="icon" /> 熱門景點</h4>
-			<div className="card-list">
-				{filterTourScenicSpotList.length > 0 && filterTourScenicSpotList.map((scenicSpot, index) => (
-					<Card
-						key={index}
-						imgUrl={scenicSpot.Picture.PictureUrl1} 
-						cardTitle={scenicSpot.Name} 
-						cardPosition={`${scenicSpot.City || ''} ${scenicSpot.Address || ''}`} 
-					/>
-				)) }
+			<div className="scenic-spot-card-list">
+				{
+					filterTourScenicSpotList.length > 0 && (
+						filterTourScenicSpotList.map((scenicSpot, index) => (
+							<ScenicSpotCard activity={scenicSpot} key={index} />
+						))
+					)
+				}	
 			</div>
 		</div>
 	);

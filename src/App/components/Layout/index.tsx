@@ -1,8 +1,8 @@
-import { ChangeEvent } from 'react';
 import { Outlet, useMatch } from "react-router";
 
 import { Navigation } from "../Navigation";
 import { Banner } from "../Banner";
+import { Footer } from '../Footer';
 import { useGlobalParams, useAppDispatch } from '../../../helpers';
 import {
   changeKeyWord,
@@ -14,7 +14,7 @@ export function Layout() {
   const isMatchTourHotel = useMatch('/tourHotel');
   const isMatchHome = useMatch('/');
   const dispatch = useAppDispatch();
-  const { globalKeyWord } = useGlobalParams();
+  const { globalKeyWord, globalCategory, globalCity } = useGlobalParams();
 
   const handleChangeKeyWord: (keyWord: string) => void = keyWord => {
     if ((!keyWord && !globalKeyWord) || keyWord === globalKeyWord) {
@@ -23,19 +23,19 @@ export function Layout() {
     dispatch(changeKeyWord({ keyWord }));
   };
 
-  const handleChangeCity: (
-      e: ChangeEvent<HTMLSelectElement>
-    ) => void = e => {
-      const { value: city } = e.target;
+  const handleChangeCity: (city: string) => void = city => {
+      if (city === globalCity) {
+        return;
+      }
       dispatch(changeSelectCity({ city }));
-  }
+  };
 
-  const handleChangeCategory: (
-      e: ChangeEvent<HTMLSelectElement>
-    ) => void = e => {
-      const { value: category } = e.target;
+  const handleChangeCategory: (category: string) => void = category => {
+      if (category === globalCategory) {
+        return;
+      }
       dispatch(changeSelectCategory({ category }));
-  }
+  };
 
 	return (
     <div className="app">
@@ -50,6 +50,7 @@ export function Layout() {
           handleChangeCategory={handleChangeCategory}
         />
         <Outlet />
+        <Footer />
       </div>
   )
 };

@@ -1,5 +1,7 @@
-import { ActivtyCard } from "../../components/ActivityCard";
+import { Card } from '../../../../components/Card';
 import { TourActivityType } from "../../slice/type";
+
+import titleIcon from '../../../../../images/card/card-title.svg';
 
 interface Props {
 	filterTourActivityList: TourActivityType[];
@@ -8,16 +10,17 @@ interface Props {
 export function TourActivity(props: Props) {
 	const { filterTourActivityList } = props;
 	return (
-		<div>
-			<h4>熱門活動</h4>
-			<div className="activity-card-list">
-				{
-					filterTourActivityList.length > 0 && (
-						filterTourActivityList.map((activity, index) => (
-							<ActivtyCard activity={activity} key={index} />
-						))
-					)
-				}	
+		<div className="tour-activity">
+			<h4><img src={titleIcon} alt="title icon" />熱門活動</h4>
+			<div className="card-list">
+				{filterTourActivityList.length > 0 && filterTourActivityList.map((activity, index) => (
+					<Card
+						key={index}
+						imgUrl={activity.Picture.PictureUrl1} 
+						cardTitle={activity.Name} 
+						cardPosition={activity.Address || '- -'} 
+					/>
+				)) }
 			</div>
 		</div>
 	);

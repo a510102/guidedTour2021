@@ -8,6 +8,7 @@ interface Props {
 
 export function Card(props: Props) {
 	const { imgUrl, cardTitle, cardPosition } = props;
+
 	return (
 		<div className="card">
 			<div className="card-img">
