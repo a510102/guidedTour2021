@@ -25,3 +25,10 @@ export type TourActivityType = {
 	Picture: TourPicture;
 	Organizer: string;
 }
+
+export enum TourShowDataNumber {
+	DefaultScenicSpot = 4,
+	SelectScenicSpot = 8,
+	DefaultActivity = 10,
+	SelectActivity = 20,
+}

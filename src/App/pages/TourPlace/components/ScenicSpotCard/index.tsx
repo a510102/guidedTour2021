@@ -18,6 +18,7 @@ export function ScenicSpotCard(props: Props) {
     Name, 
     Picture: { PictureUrl1 },
     Description,
+    DescriptionDetail,
     Address,
   } = activity;
   const emptyInfo = '- -';
@@ -30,7 +31,7 @@ export function ScenicSpotCard(props: Props) {
       </div>
       <div className="card-content">
         <h6>{Name}</h6>
-        <p className="card-description">{Description}</p>
+        <p className="card-description">{Description || DescriptionDetail}</p>
         <div className="card-other-info">
           <p className="card-map">
             <img src={mapIcon} alt="map icon" />

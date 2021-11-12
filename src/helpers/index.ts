@@ -5,6 +5,10 @@ import {
 	selectCity,
 	selectKeyWord, 
 } from '../store/globalStore/selector';
+import {
+	selectCurrentPage,
+	selectTotalPage,
+} from '../store/pagination/selector';
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -19,4 +23,14 @@ export const useGlobalParams = () => {
 		globalCity,
 		globalKeyWord,
 	};
+};
+
+export const usePagination = () => {
+	const currentPage = useAppSelector(selectCurrentPage);
+	const totalPage = useAppSelector(selectTotalPage);
+
+	return {
+		currentPage,
+		totalPage,
+	}
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { TourPlaceType } from "../../slice/type";
 
@@ -73,36 +73,50 @@ export function ScenicSpotDetailCard(props: Props) {
 		},
 	];
 
+	useEffect(() => {
+		document.documentElement.classList.add('fixed');
+
+		return () => {
+			document.documentElement.classList.remove('fixed');
+		}
+	}, []);
+
 	return (
-		<div className="scenic-spot-detail-card" onClick={handleClose}>
-			<div className="card-container" onClick={e => e.stopPropagation()}>
-				<button className="close-btn" onClick={handleClose}>
-					<img src={closeIcon} alt="close detail card" />
-				</button>
-				{
-					pictureList.length > 0 && (
-					<img src={pictureList[pictureIndex]} alt="activity pic" />
-				)}
-				{pictureIndex > 1 && <div>
-					<button disabled={pictureIndex > 0}>
-						<img src={preIcon} alt="pre pic" />
+		<div className="scenic-spot-detail-card-wrap">
+			<div className="scenic-spot-detail-card" onClick={handleClose}>
+				<div className="card-container" onClick={e => e.stopPropagation()}>
+					<button className="close-btn" onClick={handleClose}>
+						<img src={closeIcon} alt="close detail card" />
 					</button>
-					<button disabled={pictureIndex < pictureList.length}>
-						<img src={nextIcon} alt="next pic" />
-					</button>
-				</div>}
-			</div>
-			<h4>{Name}</h4>
-			<p>{DescriptionDetail || Description}</p>
-			<div className="other-info">
-					{
-						otherInfo.map((info, index) => (
-							<div className={info.className} key={index}>
-								<img src={info.icon} alt={info.className} />
-								<span>{info.name}</span>
+					<div className="scenic-spot-pic">
+						{
+							pictureList.length > 0 && (
+							<img src={pictureList[pictureIndex]} alt="activity pic" />
+						)}
+						{pictureIndex > 1 && (
+							<div className="choose-pic">
+								<button disabled={pictureIndex > 0}>
+									<img src={preIcon} alt="pre pic" />
+								</button>
+								<button disabled={pictureIndex < pictureList.length}>
+									<img src={nextIcon} alt="next pic" />
+								</button>
 							</div>
-						))
-					}
+						)}
+					</div>
+				</div>
+				<h4>{Name}</h4>
+				<p>{Description || DescriptionDetail}</p>
+				<div className="other-info">
+						{
+							otherInfo.map((info, index) => (
+								<div className={info.className} key={index}>
+									<img src={info.icon} alt={info.className} />
+									<span>{info.name}</span>
+								</div>
+							))
+						}
+				</div>
 			</div>
 		</div>
 	);

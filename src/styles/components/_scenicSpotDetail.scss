@@ -1,0 +1,63 @@
+.scenic-spot-detail-card-wrap {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(210, 210, 210, 0.75);
+	backdrop-filter: blur(28px);
+	z-index: 5;
+
+	.scenic-spot-detail-card {
+		width: 100%;
+		max-width: 670px;
+		max-height: 80vh;
+		position: relative;
+		box-sizing: border-box;
+		padding: 16px;
+		background: #fff;
+	}
+
+	.close-btn {
+		position: absolute;
+		top: 0;
+		right: -72px;
+	}
+
+	.scenic-spot-pic {
+		width: 100%;
+		min-height: 250px;
+		margin-bottom: 20px;
+		img {
+			width: 100%;
+			max-height: 200px;
+			object-fit: contain;
+		}
+	}
+
+	.choose-pic {
+		display: flex;
+		justify-content: flex-end;
+
+		img {
+			margin-right: 18px;
+			&:last-of-type {
+				margin-right: 0;
+			}
+		}
+	}
+
+	h4 {
+		font-size: 18px;
+		line-height: 26px;
+		margin-bottom: 22px;
+	}
+
+	p{
+		font-size: 14px;
+		line-height: 21px;
+	}
+}

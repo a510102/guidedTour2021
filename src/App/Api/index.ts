@@ -40,8 +40,7 @@ const fetchData = async (
 			header: GetAuthorizationHeader(),
 			method: method || 'GET',
 		};
-		console.log(fetchOptions);
-		const query = `?$format=${format || DATA_TYPE}&$top=${top|| ''}`;
+		const query = `?$format=${format || DATA_TYPE}${top ? `&$top=${top}` : ''}`;
 		const response = await fetch(`${url}${query}`, fetchOptions);
 		const { status } = response;
 		if (status !== 200) {
