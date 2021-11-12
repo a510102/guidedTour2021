@@ -17,8 +17,10 @@ import {
 } from './slice/selector';
 import { TourScenicSpot } from './feature/TourScenicSpot';
 import { TourActivity } from './feature/TourActivity';
+import { Loading } from '../../components/Loading';
 import { TourType } from '../../../types';
 import { TourShowDataNumber } from './slice/type';
+import { TourNoData } from '../../components/TourNoData';
 
 export default function TourPlace () {
 	const {
@@ -35,11 +37,11 @@ export default function TourPlace () {
 	const defaultCity: string = 'Taichung';
 	const [selectHotCity, setSelectHotCity] = useState<string>(defaultCity);
 
-	const getTourPlace: (city?: string, top?: string, keyWord?: string) => void = (city, top, keyWord) => {
+	const getTourPlace: (city?: string, top?: string) => void = (city, top) => {
 		dispatch(getTourScenicSpot({city, top}));
 	};
 
-	const getTourActivity: (city?: string, top?: string, keyWord?: string) => void = (city, top, keyWord) => {
+	const getTourActivity: (city?: string, top?: string) => void = (city, top) => {
 		dispatch(getTourActivities({city, top}));
 	};
 
@@ -63,19 +65,30 @@ export default function TourPlace () {
 		}
 	}, [globalCity, globalCategory]);
 
-	const isSelected = globalCity || globalCity || globalKeyWord;
-	const filterTourActivityList = tourActivities.filter((activity, index) => isSelected
-		? index < currentPage * TourShowDataNumber.SelectActivity && index >= (currentPage - 1 ) * TourShowDataNumber.SelectActivity 
-		: index < TourShowDataNumber.DefaultActivity);
-	const filterTourScenicSpotList = tourScenicSpots.filter((activity, index) => isSelected 
-		? index < TourShowDataNumber.SelectScenicSpot * currentPage && index >= TourShowDataNumber.SelectScenicSpot * (currentPage - 1) 
-		: index < TourShowDataNumber.DefaultScenicSpot);
+	const isSelected = globalCity || globalCategory || globalKeyWord;
+	const filterTourActivityList = tourActivities
+		.filter(activity => globalKeyWord ? (
+			activity.Name.includes(globalKeyWord) ||
+			(activity.Description && activity.Description.includes(globalKeyWord)) || 
+			(activity.DescriptionDetail && activity.DescriptionDetail.includes(globalKeyWord))
+			) : activity)
+		.filter((activity, index) => isSelected
+			? index < currentPage * TourShowDataNumber.SelectActivity && index >= (currentPage - 1 ) * TourShowDataNumber.SelectActivity 
+			: index < TourShowDataNumber.DefaultActivity);
+	const filterTourScenicSpotList = tourScenicSpots
+		.filter(scenicSpot => globalKeyWord ? (
+			scenicSpot.Name.includes(globalKeyWord) ||
+			(scenicSpot.Description && scenicSpot.Description.includes(globalKeyWord)) || 
+			(scenicSpot.DescriptionDetail && scenicSpot.DescriptionDetail.includes(globalKeyWord))
+			) : scenicSpot)
+		.filter((scenicSpot, index) => isSelected 
+			? index < TourShowDataNumber.SelectScenicSpot * currentPage && index >= TourShowDataNumber.SelectScenicSpot * (currentPage - 1) 
+			: index < TourShowDataNumber.DefaultScenicSpot);
 
 	const getCurrentTotalPage: () => number = () => {
 		const total = globalCategory === TourType.TourPlace 
 			? tourScenicSpots.length / TourShowDataNumber.SelectScenicSpot 
 			: tourActivities.length / TourShowDataNumber.SelectActivity
-		console.log(Math.ceil(total), filterTourActivityList.length, TourShowDataNumber.SelectActivity);
 		return Math.ceil(total);
 	}
 
@@ -83,12 +96,31 @@ export default function TourPlace () {
 
 	return (
 		<main>
-			{!isSelected && (
-				<HotCity handleChangeCity={handleChangeHotCity} />
-				)}
-			{(globalCategory === TourType.TourPlace || !globalCategory) && <TourScenicSpot filterTourScenicSpotList={filterTourScenicSpotList} />}
-			{(globalCategory === TourType.TourActive || !globalCategory) && (<TourActivity filterTourActivityList={filterTourActivityList} />)}
-			{globalCategory && <Pagination currentTotalPage={totalPage}/>}
+			{tourPlaceIsFetching ? (
+				<Loading /> ) : (
+				<>
+					{!isSelected && (
+						<HotCity handleChangeCity={handleChangeHotCity} />
+						)}
+					{(globalCategory === TourType.TourActive || !globalCategory) && (
+						filterTourActivityList.length > 0 
+							? <TourActivity filterTourActivityList={filterTourActivityList} /> 
+							: <TourNoData />
+					)}
+					{(globalCategory === TourType.TourPlace || !globalCategory) && (
+						filterTourScenicSpotList.length > 0 
+							?  <TourScenicSpot
+									filterTourScenicSpotList={filterTourScenicSpotList}
+									globalCiry={globalCity}
+								/>
+							: <TourNoData />
+					)}
+					{globalCategory && 
+						(filterTourScenicSpotList.length > 0 || filterTourActivityList.length > 0) && 
+							<Pagination currentTotalPage={totalPage}/>
+					}
+				</>
+			)}
 		</main>
 	)
 }

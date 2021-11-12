@@ -9,6 +9,7 @@ import {
 	selectCurrentPage,
 	selectTotalPage,
 } from '../store/pagination/selector';
+import districes from '../localData/taiwan_districts.json';
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -34,3 +35,7 @@ export const usePagination = () => {
 		totalPage,
 	}
 };
+
+export const useDistrictToCity = () => {
+	console.log(districes);
+}

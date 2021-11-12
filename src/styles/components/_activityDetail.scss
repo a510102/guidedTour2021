@@ -1,4 +1,4 @@
-.scenic-spot-detail-card-wrap {
+.activity-card-detail-card-wrap {
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
@@ -11,10 +11,10 @@
 	backdrop-filter: blur(28px);
 	z-index: 5;
 
-	.scenic-spot-detail-card {
+	.activity-card-detail-cardd {
 		width: 100%;
 		max-width: 670px;
-		max-height: 80vh;
+		max-height: 810px;
 		position: relative;
 		box-sizing: border-box;
 		padding: 16px;
@@ -33,14 +33,19 @@
 		margin-bottom: 20px;
 		img {
 			width: 100%;
-			max-height: 200px;
+			max-height: 459px;
 			object-fit: contain;
+			margin-bottom: 22px;
 		}
 	}
 
 	.choose-pic {
 		display: flex;
 		justify-content: flex-end;
+		
+		button {
+			height: 39px;
+		}
 
 		img {
 			margin-right: 18px;
@@ -59,5 +64,32 @@
 	p{
 		font-size: 14px;
 		line-height: 21px;
+		margin-bottom: 20px;
+	}
+
+	.other-info {
+		display: flex;
+		flex-wrap: wrap;
+		> div {
+			display: flex;
+			align-items: center;
+			margin-bottom: 25px;
+
+			img {
+				display: inline-block;
+				margin-right: 8px;
+			}
+		}
+	}
+
+	.time,
+	.map {
+		width: 60%;
+		margin-right: 40px;
+	}
+
+	.ticket,
+	.phone {
+		flex: 1;
 	}
 }

@@ -28,7 +28,7 @@ export function Select(props: Props) {
 		) => void = (e, value) => {
 		e.stopPropagation();
 		toggleIsShowList();
-		if (selectedValue === value.value) {
+		if (selectedValue && selectedValue === value.value) {
 			return;
 		}
 		setSelectedValue(value.name);

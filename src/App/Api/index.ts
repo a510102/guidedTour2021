@@ -2,7 +2,6 @@ import jsSHA from 'jssha';
 
 const TOURISM_URL = 'https://ptx.transportdata.tw/MOTC';
 const DATA_TYPE = 'JSON';
-const GOOGLE_MAP_URL = 'https://maps.googleapis.com/maps/api/geocode/json?';
 
 export type APiResponseType = {
 	status?: string;
@@ -29,8 +28,7 @@ const GetAuthorizationHeader = () => {
 
 const fetchData = async (
 		url: string, 
-		top?: string,
-		format?: string,
+		query?: string,
 		data?: any, 
 		method?:string, 
 	) => {
@@ -40,7 +38,6 @@ const fetchData = async (
 			header: GetAuthorizationHeader(),
 			method: method || 'GET',
 		};
-		const query = `?$format=${format || DATA_TYPE}${top ? `&$top=${top}` : ''}`;
 		const response = await fetch(`${url}${query}`, fetchOptions);
 		const { status } = response;
 		if (status !== 200) {
@@ -66,34 +63,42 @@ const fetchData = async (
 	}
 }
 
-export const fetchScenicSpot = async (city?: string, top?:string) => {
+export const fetchScenicSpot = async (
+	city?: string, 
+	top?:string, 
+	) => {
+	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}`;
+	console.log(query);
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/ScenicSpot${city ? `/${city}`: ''}`,
-		top,
+		query,
 	);
 	return response;
 };
 
 export const fetchActivity = async (city?: string, top?:string) => {
+	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}`;
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/Activity${city ? `/${city}`: ''}`,
-		top,
+		query,
 	);
 	return response;
-}
+};
 
 export const fetchRestaurant = async (city?: string, top?:string) => {
+	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}`;
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/Restaurant${city ? `/${city}`: ''}`,
-		top,
+		query,
 	);
 	return response;
 }
 
 export const fetchHotel = async (city?: string, top?:string) => {
+	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}`;
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/Hotel${city ? `/${city}`: ''}`,
-		top,
+		query,
 	);
 	return response;
 }

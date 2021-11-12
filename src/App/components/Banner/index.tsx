@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 
 import { TourType } from '../../../types';
 import { Select } from '../Select';
@@ -15,6 +15,7 @@ interface Props {
 	handleChangeCity: (city: string) => void;
 	handleChangeCategory: (category: string) => void;
 	handleChangeKeyWord: (keyWord: string) => void;
+	handleResetPage: () => void;
 }
 
 export function Banner(props: Props) {
@@ -24,6 +25,7 @@ export function Banner(props: Props) {
 		handleChangeCity,
 		handleChangeKeyWord,
 		handleChangeCategory,
+		handleResetPage,
 	} = props;
 	const [keyWord, setKeyWord] = useState<string>('');
 	const [city, setCity] = useState<string>('');
@@ -62,6 +64,7 @@ export function Banner(props: Props) {
 	const handleSelectCity: (value: string) => void = value => setCity(value);
 
 	const handleSearch = () => {
+		handleResetPage();
 		handleChangeCategory(category);
 		handleChangeCity(city);
 		handleChangeKeyWord(keyWord);
@@ -79,6 +82,10 @@ export function Banner(props: Props) {
 			name: city.CityName,
 			value: city.City
 	}));
+	formatCityList.unshift({
+		name: '不分縣市',
+		value: '',
+	})
 
 	return (
 		<div 
@@ -110,7 +117,7 @@ export function Banner(props: Props) {
 								hint="類別"
 							/>
 						)}
-						<Select list={formatCityList} handleOnChange={handleSelectCity} hint="不分縣市" />
+						<Select list={formatCityList} handleOnChange={handleSelectCity} hint="縣市" />
 					</div>
 					<button onClick={handleSearch}>
 						<img src={searchIcon} alt="search key word" />

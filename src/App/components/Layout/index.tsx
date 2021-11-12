@@ -9,6 +9,7 @@ import {
   changeSelectCategory,
   changeSelectCity,
 } from '../../../store/globalStore';
+import { resetPage } from "../../../store/pagination";
 
 export function Layout() {
   const isMatchTourHotel = useMatch('/tourHotel');
@@ -37,6 +38,10 @@ export function Layout() {
       dispatch(changeSelectCategory({ category }));
   };
 
+  const handleResetPage: () => void = () => {
+    dispatch(resetPage());
+  }
+
 	return (
     <div className="app">
         <header className="app-header">
@@ -48,6 +53,7 @@ export function Layout() {
           handleChangeCity={handleChangeCity}
           handleChangeKeyWord={handleChangeKeyWord}
           handleChangeCategory={handleChangeCategory}
+          handleResetPage={handleResetPage}
         />
         <Outlet />
         <Footer />

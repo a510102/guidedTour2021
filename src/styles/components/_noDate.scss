@@ -1,0 +1,23 @@
+.no-data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.no-data-content {
+  display: flex;
+  align-items: center;
+  p {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    line-height: 26px;
+    color: #D2D2D2;
+    margin-left: 8px;
+
+    .error-title {
+      color: #FFB72C;
+    }
+  }
+}

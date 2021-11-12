@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { useAppDispatch, usePagination } from '../../../helpers';
-import { prePage, nextPage, changeTotalPage, resetPage } from '../../../store/pagination';
+import { prePage, nextPage, changeTotalPage } from '../../../store/pagination';
 
 import preIcon from '../../../images/pagination/pre.png';
 import nextIcon from '../../../images/pagination/next.png';
@@ -14,7 +13,6 @@ interface Props {
 export function Pagination(props: Props) {
 	const { currentTotalPage } = props;
 	const dispatch = useAppDispatch();
-	const { pathname } = useLocation();
 	const { currentPage, totalPage } = usePagination();
 	
 	const handlePrePage = () => {
@@ -38,10 +36,6 @@ export function Pagination(props: Props) {
 			dispatch(changeTotalPage({totalPage: currentTotalPage}));
 		}
 	}, [currentTotalPage]);
-
-	useEffect(() => {
-		dispatch(resetPage());
-	}, [pathname]);
 
 	return (
 		<>

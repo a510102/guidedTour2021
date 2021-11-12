@@ -1,3 +1,4 @@
+
 type TourPicture = {
 	PictureDescription1: string;
 	PictureDescription2?: string;
@@ -7,28 +8,30 @@ type TourPicture = {
 	PictureUrl3?: string;
 }
 
-export type TourPlaceType = {
+export type TourType = {
 	Address: string;
 	Description: string;
 	DescriptionDetail: string;
 	Name: string;
 	Phone: string;
 	Picture: TourPicture;
-	TicketInfo: string;
-	OpenTime: string;
+	City: string;
 }
 
-export type TourActivityType = {
-	Name: string;
-	Address: string;
-	City: string;
-	Picture: TourPicture;
-	Organizer: string;
+export interface TourPlaceType extends TourType {
+	ZipCode: string;
+}
+
+export interface TourActivityType extends TourType {
+	Location: string;
+	Charge: string;
+	StartTime: string;
+	EndTime: string;
 }
 
 export enum TourShowDataNumber {
-	DefaultScenicSpot = 4,
-	SelectScenicSpot = 8,
-	DefaultActivity = 10,
-	SelectActivity = 20,
+	DefaultScenicSpot = 10,
+	SelectScenicSpot = 20,
+	DefaultActivity = 4,
+	SelectActivity = 8,
 }

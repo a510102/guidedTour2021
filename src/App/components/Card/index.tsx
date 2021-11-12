@@ -1,4 +1,5 @@
 import mapIcon from '../../../images/card/map.svg';
+import noImage from '../../../images/card/cardNoImage.png';
 
 interface Props {
 	imgUrl: string;
@@ -12,7 +13,7 @@ export function Card(props: Props) {
 	return (
 		<div className="card">
 			<div className="card-img">
-				{imgUrl && <img src={imgUrl} alt="card pic" />}
+				<img src={imgUrl || noImage} alt="card pic" />
 			</div>
 			<p>{cardTitle}</p>
 			<div className="card-position">

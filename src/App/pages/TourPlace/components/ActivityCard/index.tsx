@@ -1,15 +1,16 @@
 import { useState } from 'react';
 
-import { TourPlaceType } from "../../slice/type";
-import { ScenicSpotDetailCard } from '../ScenicSpotDetailCard';
+import { TourActivityType } from "../../slice/type";
+import { ActivityCardDetailCard } from '../ActivityCardDetailCard';
 
-import mapIcon from '../../../../../images/scenicSpotDetailCard/map_M.svg'
+import mapIcon from '../../../../../images/activityDetailCard/map_M.svg';
+import noImage from '../../../../../images/activityDetailCard/activityNoImage.png';
 
 interface Props {
-  activity: TourPlaceType;
+  activity: TourActivityType;
 }
 
-export function ScenicSpotCard(props: Props) {
+export function ActivityCard(props: Props) {
   const { activity } = props;
   const [isShowDetail, setIsShowDetail] = useState<boolean>(false);
   const handleOpen = () => setIsShowDetail(true);
@@ -19,7 +20,7 @@ export function ScenicSpotCard(props: Props) {
     Picture: { PictureUrl1 },
     Description,
     DescriptionDetail,
-    Address,
+    Location,
   } = activity;
   const emptyInfo = '- -';
   
@@ -27,7 +28,7 @@ export function ScenicSpotCard(props: Props) {
     <>
     <div className="scenic-spot-card">
       <div className="card-img">
-        {PictureUrl1 && <img src={PictureUrl1} alt="pic" />}
+        <img src={PictureUrl1 || noImage} alt="pic" />
       </div>
       <div className="card-content">
         <h6>{Name}</h6>
@@ -35,14 +36,14 @@ export function ScenicSpotCard(props: Props) {
         <div className="card-other-info">
           <p className="card-map">
             <img src={mapIcon} alt="map icon" />
-            <span>{Address || emptyInfo}</span>
+            <span>{Location || emptyInfo}</span>
           </p>
           <button className="card-btn" onClick={handleOpen}>活動詳情</button>
         </div>
       </div>
     </div>
     {isShowDetail && (
-      <ScenicSpotDetailCard 
+      <ActivityCardDetailCard 
         activity={activity} 
         handleClose={handleClose} 
       />

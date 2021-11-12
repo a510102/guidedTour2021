@@ -1,32 +1,34 @@
 import { useState, useEffect } from 'react';
 
-import { TourPlaceType } from "../../slice/type";
+import { TourActivityType } from "../../slice/type";
 
 import preIcon from '../../../../../images/hotCity/icon/pre.png';
 import nextIcon from '../../../../../images/hotCity/icon/next.png';
-import ticketIcon from '../../../../../images/scenicSpotDetailCard/ticket.svg';
-import timeIcon from '../../../../../images/scenicSpotDetailCard/time.svg';
-import mapIcon from '../../../../../images/scenicSpotDetailCard/map_M.svg';
-import phoneIcon from '../../../../../images/scenicSpotDetailCard/tel.svg';
+import ticketIcon from '../../../../../images/activityDetailCard/ticket.svg';
+import timeIcon from '../../../../../images/activityDetailCard/time.svg';
+import mapIcon from '../../../../../images/activityDetailCard/map_M.svg';
+import phoneIcon from '../../../../../images/activityDetailCard/tel.svg';
 import closeIcon from '../../../../../images/global/close.png';
-
+import noImage from '../../../../../images/activityDetailCard/activityDetailNoImage.png';
 
 interface Props {
-	activity: TourPlaceType;
+	activity: TourActivityType;
 	handleClose: () => void;
 };
 
-export function ScenicSpotDetailCard(props: Props) {
+export function ActivityCardDetailCard(props: Props) {
 	const { activity, handleClose } = props;
-	const [pictureIndex, setPiceturIndex] = useState<number>(0);
+	const [pictureIndex, setPictureIndex] = useState<number>(0);
 	const {
 		Picture: {
 			PictureUrl1,
 			PictureUrl2,
 			PictureUrl3
 		},
-		OpenTime,
-		TicketInfo,
+		StartTime,
+		EndTime,
+		Charge,
+		Location,
 		Address,
 		Phone,
 		Name,
@@ -48,22 +50,31 @@ export function ScenicSpotDetailCard(props: Props) {
 		return list;
 	}
 
+	const getTimeFormat: (timeStamp: string) => string = timeStamp => {
+		const time = new Date(timeStamp);
+		const year = time.getFullYear();
+		const month = time.getMonth() + 1;
+		const day = time.getDate();
+		const formateTime = `${year}-${month}-${day}`;
+		return formateTime;
+	}
+	
 	const pictureList: string[] = getPictureList();
 	const emptyInfo = '- -'
 	const otherInfo = [
 		{
 			icon: timeIcon,
-			name: OpenTime || emptyInfo,
+			name: `${getTimeFormat(StartTime)} ~ ${getTimeFormat(EndTime)}` || emptyInfo,
 			className: 'time',
 		},
 		{
 			icon: ticketIcon,
-			name: TicketInfo || emptyInfo,
+			name: Charge || emptyInfo,
 			className: 'ticket',
 		},
 		{
 			icon: mapIcon,
-			name: Address || emptyInfo,
+			name: `${Location.replace(' ', '')}${Address}` || emptyInfo,
 			className: 'map',
 		},
 		{
@@ -72,6 +83,11 @@ export function ScenicSpotDetailCard(props: Props) {
 			className: 'phone',
 		},
 	];
+
+	const prePicture = () => setPictureIndex(prePictureIndex => prePictureIndex -= 1);
+
+	const nextPicture = () => setPictureIndex(prePictureIndex => prePictureIndex += 1);
+
 
 	useEffect(() => {
 		document.documentElement.classList.add('fixed');
@@ -82,23 +98,20 @@ export function ScenicSpotDetailCard(props: Props) {
 	}, []);
 
 	return (
-		<div className="scenic-spot-detail-card-wrap">
-			<div className="scenic-spot-detail-card" onClick={handleClose}>
+		<div className="activity-card-detail-card-wrap">
+			<div className="activity-card-detail-cardd" onClick={handleClose}>
 				<div className="card-container" onClick={e => e.stopPropagation()}>
 					<button className="close-btn" onClick={handleClose}>
 						<img src={closeIcon} alt="close detail card" />
 					</button>
 					<div className="scenic-spot-pic">
-						{
-							pictureList.length > 0 && (
-							<img src={pictureList[pictureIndex]} alt="activity pic" />
-						)}
-						{pictureIndex > 1 && (
+						<img src={pictureList.length === 0 ? noImage : pictureList[pictureIndex]} alt="activity pic" />
+						{pictureList.length > 1 && (
 							<div className="choose-pic">
-								<button disabled={pictureIndex > 0}>
+								<button disabled={pictureIndex === 0} onClick={prePicture}>
 									<img src={preIcon} alt="pre pic" />
 								</button>
-								<button disabled={pictureIndex < pictureList.length}>
+								<button disabled={pictureIndex === pictureList.length -1} onClick={nextPicture}>
 									<img src={nextIcon} alt="next pic" />
 								</button>
 							</div>

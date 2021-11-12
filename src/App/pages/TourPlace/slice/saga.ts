@@ -15,7 +15,10 @@ import {
 	APiResponseType,
 } from '../../../Api';
 
-function* fetchScenicSpotSaga(action: PayloadAction<{city?: string; top?: string;}>) {
+function* fetchScenicSpotSaga(action: PayloadAction<{
+	city?: string; 
+	top?: string;
+}>) {
 	try {
 		const { city, top } = action.payload;
 		const response: APiResponseType = yield call(fetchScenicSpot, city, top);
@@ -28,7 +31,10 @@ function* fetchScenicSpotSaga(action: PayloadAction<{city?: string; top?: string
 	}
 }
 
-function* fetchActivitySaga(action: PayloadAction<{city?: string; top?: string;}>) {
+function* fetchActivitySaga(action: PayloadAction<{
+	city?: string;
+	top?: string;
+}>) {
 	try {
 		const { city, top } = action.payload;
 		const response: APiResponseType = yield call(fetchActivity, city, top);
