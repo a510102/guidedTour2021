@@ -1,12 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TourActivityType, TourPlaceType } from './type';
-
-interface TourPlaceStore {
-	tourScenicSpots: TourPlaceType[];
-	tourActivities: TourActivityType[];
-	isFetching: boolean;
-	error: any;
-};
+import { TourPlaceStore } from './type';
 
 const initialState: TourPlaceStore = {
 	tourScenicSpots: [],

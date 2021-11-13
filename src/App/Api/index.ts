@@ -3,7 +3,7 @@ import jsSHA from 'jssha';
 const TOURISM_URL = 'https://ptx.transportdata.tw/MOTC';
 const DATA_TYPE = 'JSON';
 
-export type APiResponseType = {
+export type ApiResponseType = {
 	status?: string;
 	data: any;
 	success: boolean;

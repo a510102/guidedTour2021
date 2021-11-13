@@ -19,7 +19,7 @@ import { TourScenicSpot } from './feature/TourScenicSpot';
 import { TourActivity } from './feature/TourActivity';
 import { Loading } from '../../components/Loading';
 import { TourType } from '../../../types';
-import { TourShowDataNumber } from './slice/type';
+import { TourShowDataNumber } from '../../../types';
 import { TourNoData } from '../../components/TourNoData';
 
 export default function TourPlace () {
@@ -65,7 +65,7 @@ export default function TourPlace () {
 		}
 	}, [globalCity, globalCategory]);
 
-	const isSelected = globalCity || globalCategory || globalKeyWord;
+	const isSelected = !!(globalCity || globalCategory || globalKeyWord);
 	const filterTourActivityList = tourActivities
 		.filter(activity => globalKeyWord ? (
 			activity.Name.includes(globalKeyWord) ||

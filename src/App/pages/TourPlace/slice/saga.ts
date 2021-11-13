@@ -12,7 +12,7 @@ import {
 import {
 	fetchActivity,
 	fetchScenicSpot,
-	APiResponseType,
+	ApiResponseType,
 } from '../../../Api';
 
 function* fetchScenicSpotSaga(action: PayloadAction<{
@@ -21,7 +21,7 @@ function* fetchScenicSpotSaga(action: PayloadAction<{
 }>) {
 	try {
 		const { city, top } = action.payload;
-		const response: APiResponseType = yield call(fetchScenicSpot, city, top);
+		const response: ApiResponseType = yield call(fetchScenicSpot, city, top);
 		if (!response.success) {
 			throw response.data;
 		}
@@ -37,7 +37,7 @@ function* fetchActivitySaga(action: PayloadAction<{
 }>) {
 	try {
 		const { city, top } = action.payload;
-		const response: APiResponseType = yield call(fetchActivity, city, top);
+		const response: ApiResponseType = yield call(fetchActivity, city, top);
 		if (!response.success) {
 			throw response.data;
 		}

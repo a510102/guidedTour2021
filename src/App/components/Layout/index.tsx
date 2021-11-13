@@ -1,4 +1,5 @@
-import { Outlet, useMatch } from "react-router";
+import { useEffect, useCallback } from 'react';
+import { Outlet, useMatch, useLocation } from "react-router";
 
 import { Navigation } from "../Navigation";
 import { Banner } from "../Banner";
@@ -15,32 +16,41 @@ export function Layout() {
   const isMatchTourHotel = useMatch('/tourHotel');
   const isMatchHome = useMatch('/');
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
   const { globalKeyWord, globalCategory, globalCity } = useGlobalParams();
 
-  const handleChangeKeyWord: (keyWord: string) => void = keyWord => {
+  const handleChangeKeyWord: (keyWord: string) => void = useCallback(keyWord => {
     if ((!keyWord && !globalKeyWord) || keyWord === globalKeyWord) {
       return;
     }
     dispatch(changeKeyWord({ keyWord }));
-  };
+  }, [dispatch, globalKeyWord]);
 
-  const handleChangeCity: (city: string) => void = city => {
+  const handleChangeCity: (city: string) => void = useCallback(city => {
       if (city === globalCity) {
         return;
       }
       dispatch(changeSelectCity({ city }));
-  };
+  }, [dispatch, globalCity]);
 
-  const handleChangeCategory: (category: string) => void = category => {
+  const handleChangeCategory: (category: string) => void = useCallback(category => {
       if (category === globalCategory) {
         return;
       }
       dispatch(changeSelectCategory({ category }));
-  };
+  }, [dispatch, globalCategory]);
 
-  const handleResetPage: () => void = () => {
+  const handleResetPage: () => void = useCallback(() => {
     dispatch(resetPage());
-  }
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log('run');
+    handleResetPage();
+    handleChangeCategory('');
+    handleChangeCity('');
+    handleChangeKeyWord('');
+  }, [pathname]);
 
 	return (
     <div className="app">

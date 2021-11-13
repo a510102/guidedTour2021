@@ -28,12 +28,10 @@
 	left: 0;
 	width: 100%;
 	background: #fff;
-	padding: 8px 16px;
 	border-radius: 0 0 6px 6px;
 	z-index: 3;
 	p {
-		margin-bottom: 10px;
-		padding: 2px 0;
+		padding: 8px 16px;
 		cursor: pointer;
 		&:last-of-type {
 			margin-bottom: 5px;
