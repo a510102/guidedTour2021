@@ -4,6 +4,7 @@
 	border-radius: 6px;
 	position: relative;
 	cursor: pointer;
+	box-shadow: 0px 2px 4px 0px #0D0B0C33;
 }
 
 .selected-value {
@@ -29,6 +30,8 @@
 	width: 100%;
 	background: #fff;
 	border-radius: 0 0 6px 6px;
+	max-height: 200px;
+	overflow: auto;
 	z-index: 3;
 	p {
 		padding: 8px 16px;

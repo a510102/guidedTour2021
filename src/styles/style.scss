@@ -21,6 +21,8 @@ button {
 .app {
 	background: #F6F7FB;
 }
+@import './setting/mixin';
+
 @import './components/layout';
 @import './components/navigation';
 @import './components/banner';
@@ -33,6 +35,7 @@ button {
 @import './components/activityDetail';
 @import './components/loading';
 @import './components/noDate';
+@import './components/busStopInfo';
 
 @import './page/tourScenicSpot';
 @import './page/tourHotel';

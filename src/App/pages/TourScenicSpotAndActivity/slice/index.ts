@@ -15,6 +15,8 @@ const tourPlaceSlice = createSlice({
 		getTourScenicSpot (state, action: PayloadAction<{
 			city?: string; 
 			top?: string;
+			lat?: number | string;
+			lng?: number | string;
 		}>) {
 			state.isFetching = true;
 		},
@@ -29,6 +31,8 @@ const tourPlaceSlice = createSlice({
 		getTourActivities (state, action: PayloadAction<{
 			city?: string; 
 			top?: string;
+			lat?: number | string;
+			lng?: number | string;
 		}>) {
 			state.isFetching = true;
 		},

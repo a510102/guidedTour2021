@@ -51,7 +51,6 @@ export function Select(props: Props) {
 			</p>
 			{isShowList && <div className="select-list">
 				{list
-					.filter(listItem => listItem.name !== selectedValue)
 					.map((listItem, index) => (
 						<p key={index} onClick={e => handleOnClick(e, listItem)} >{listItem.name}</p>
 				))}

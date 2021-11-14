@@ -1,4 +1,4 @@
-.scenic-spot-card {
+.activity-card {
 	width: 522px;
 	min-height: 228px;
 	display: flex;
@@ -8,11 +8,25 @@
 	margin-bottom: 48px;
 	background: #fff;
 
+	@include for-pad {
+		width: 298px;
+		min-height: 120px;
+		padding: 12px;
+	}
+
+	@include for-mobile {
+		margin-bottom: 15px;
+	}
+
 	.card-img {
 		width: 187px;
-		min-width: 187px;
 		height: 194px;
 		margin-right: 16px;
+
+		@include for-pad {
+			width: 92px;
+			height: 96px;
+		}
 
 		img {
 			width: 100%;
@@ -23,6 +37,12 @@
 
 	.card-content {
 		width: 278px;
+		@include for-pad {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			width: 100%;
+		}
 	}
 
 	.card-description {
@@ -44,6 +64,10 @@
 		width: 100%;
 		font-size: 14px;
 		line-height: 21px;
+
+		@include for-pad {
+			margin-top: auto;
+		}
 	}
 
 	.card-map {
@@ -51,11 +75,19 @@
 		align-items: center;
 		width: 50%;
 		min-width: 50%;
+		
+		@include for-pad {
+			width: 100%;
+			min-width: 100%;
+		}
 		span {
 			width: 88px;
 			overflow:hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
+			@include for-pad {
+				width: 100%;
+			}
 		}
 		img {
 			display: inline-block;

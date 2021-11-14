@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { useMedia } from '../../../helpers';
+
 import titleIcon from '../../../images/global/Vector.svg';
 import pre from '../../../images/hotCity/icon/pre.png';
 import next from '../../../images/hotCity/icon/next.png';
@@ -13,10 +15,12 @@ enum CityPage {
 	PageOne = 1,
 	PageTwo = 2,
 	limit = 7,
+	all = 14,
 };
 
 export function HotCity(props: Props) {
 	const { handleChangeCity } = props;
+	const { isMobile, isPad } = useMedia();
 	const [cityPage, setCityPage] = useState<number>(CityPage.PageOne);
 	const cityList = [
 		{name: '台北市', value: 'Taipei'},
@@ -44,16 +48,18 @@ export function HotCity(props: Props) {
 				<span>熱門城市</span>
 			</h4>
 			<div className="select-hot-city">
-				{cityPage === CityPage.PageTwo && <button
-					className="select-hot-city-btn pre"
-					onClick={handlePrePage}
-				>
-					<img src={pre} alt="icon" />
-				</button>}
+				{(cityPage === CityPage.PageTwo && !(isPad || isMobile)) && (
+					<button
+						className="select-hot-city-btn pre"
+						onClick={handlePrePage}
+					>
+						<img src={pre} alt="icon" />
+					</button>
+				)}
 				{
-					cityList.map((city, index) => (
-						(index < CityPage.limit * cityPage) && 
-						(index >= CityPage.limit * (cityPage - 1))
+					cityList.map((city, index) => ((isMobile || isPad) 
+						? city
+						:	(index < CityPage.limit * cityPage) && (index >= CityPage.limit * (cityPage - 1))
 					) ? ( 
 						<div
 							key={index}
@@ -71,12 +77,14 @@ export function HotCity(props: Props) {
 						</div>
 					) : null)
 				}
-				{cityPage === CityPage.PageOne &&<button
-					className="select-hot-city-btn next"
-					onClick={handleNextPage}
-				>
-					<img src={next} alt="icon" />
-				</button>}
+				{(cityPage === CityPage.PageOne && !(isMobile || isPad)) && (
+					<button
+						className="select-hot-city-btn next"
+						onClick={handleNextPage}
+					>
+						<img src={next} alt="icon" />
+					</button>
+				)}
 			</div>
 		</div>
 	);

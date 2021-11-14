@@ -1,5 +1,5 @@
 import { lazyLoad } from "../../../utils/loadable";
 
-export const TourHotel = lazyLoad(
+export const TourScenicSpotAndActivity = lazyLoad(
 	() => import('.')
 )

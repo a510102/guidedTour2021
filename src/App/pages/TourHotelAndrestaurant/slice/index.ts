@@ -16,6 +16,8 @@ const tourHotelSlice = createSlice({
     getTourHotel (state, action: PayloadAction<{
       city?: string;
       top?: string;
+      lat?: number | string;
+			lng?: number | string;
     }>) {
       state.isFetching = true;
     },
@@ -30,6 +32,8 @@ const tourHotelSlice = createSlice({
     getTourFood (state, action: PayloadAction<{
       city?: string;
       top?: string;
+      lat?: number | string;
+			lng?: number | string;
     }>) {
       state.isFetching = true;
     },

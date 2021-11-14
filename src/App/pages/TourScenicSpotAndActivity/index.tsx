@@ -9,6 +9,7 @@ import {
 	usePagination,
 } from '../../../helpers';
 import { getTourActivities, getTourScenicSpot } from './slice';
+import { changeSelectCity } from '../../../store/globalStore';
 import {
 	selectError,
 	selectIsFetching,
@@ -22,11 +23,13 @@ import { TourType } from '../../../types';
 import { TourShowDataNumber } from '../../../types';
 import { TourNoData } from '../../components/TourNoData';
 
-export default function TourPlace () {
+export default function TourScenicSpotAndActivity () {
 	const {
 		globalCategory,
 		globalCity,
 		globalKeyWord,
+		globalLat,
+		globalLng,
 	} = useGlobalParams();
 	const { currentPage } = usePagination();
 	const dispatch = useAppDispatch();
@@ -37,53 +40,70 @@ export default function TourPlace () {
 	const defaultCity: string = 'Taichung';
 	const [selectHotCity, setSelectHotCity] = useState<string>(defaultCity);
 
-	const getTourPlace: (city?: string, top?: string) => void = (city, top) => {
-		dispatch(getTourScenicSpot({city, top}));
+	const getTourPlace: (
+		city?: string, 
+		top?: string, 
+		lat?: string | number, 
+		lng?: string | number,
+	) => void = (city, top, lat, lng) => {
+		dispatch(getTourScenicSpot({city, top, lat, lng}));
 	};
 
-	const getTourActivity: (city?: string, top?: string) => void = (city, top) => {
-		dispatch(getTourActivities({city, top}));
+	const getTourActivity: (
+		city?: string, 
+		top?: string, 
+		lat?: string | number, 
+		lng?: string | number,
+	) => void = (city, top, lat, lng) => {
+		dispatch(getTourActivities({city, top, lat, lng}));
 	};
 
 	const handleChangeHotCity: (city: string) => void = city => {
-		if (city !== selectHotCity) {
-			setSelectHotCity(city);
+		if (city !== globalCity) {
+			dispatch(changeSelectCity({ city }));
 		}
 	};
 
 	useEffect(() => {
 		getTourPlace(selectHotCity, TourShowDataNumber.DefaultScenicSpot.toString());
 		getTourActivity(selectHotCity, TourShowDataNumber.DefaultActivity.toString());
-	}, [selectHotCity]);
+	}, []);
 
 	useEffect(() => {
-		if (globalCategory === TourType.TourPlace) {
+		if (globalCategory === TourType.TourPlace || (!globalCategory && (globalCity))) {
 			getTourPlace(globalCity);
 		}
-		if (globalCategory === TourType.TourActive) {
+		if (globalCategory === TourType.TourActive || (!globalCategory && (globalCity))) {
 			getTourActivity(globalCity);
 		}
 	}, [globalCity, globalCategory]);
 
-	const isSelected = !!(globalCity || globalCategory || globalKeyWord);
+	useEffect(() => {
+		if (globalLng && globalLat) {
+			getTourPlace('', '', globalLat, globalLng);
+			getTourActivity('', '', globalLat, globalLng);
+		}
+	}, [globalLat, globalLng]);
+	const isSelectedWithCategory = !!(globalCity || globalLng || globalLat) && globalCategory;
+	const isSelected = !!(globalCategory || globalKeyWord || globalCity || globalLng || globalLat);
 	const filterTourActivityList = tourActivities
 		.filter(activity => globalKeyWord ? (
 			activity.Name.includes(globalKeyWord) ||
 			(activity.Description && activity.Description.includes(globalKeyWord)) || 
 			(activity.DescriptionDetail && activity.DescriptionDetail.includes(globalKeyWord))
 			) : activity)
-		.filter((activity, index) => isSelected
+		.filter((activity, index) => isSelectedWithCategory
 			? index < currentPage * TourShowDataNumber.SelectActivity && index >= (currentPage - 1 ) * TourShowDataNumber.SelectActivity 
-			: index < TourShowDataNumber.DefaultActivity);
+			: index < TourShowDataNumber.DefaultActivity * currentPage && index >= (currentPage - 1 ) * TourShowDataNumber.DefaultActivity);
 	const filterTourScenicSpotList = tourScenicSpots
 		.filter(scenicSpot => globalKeyWord ? (
 			scenicSpot.Name.includes(globalKeyWord) ||
 			(scenicSpot.Description && scenicSpot.Description.includes(globalKeyWord)) || 
 			(scenicSpot.DescriptionDetail && scenicSpot.DescriptionDetail.includes(globalKeyWord))
 			) : scenicSpot)
-		.filter((scenicSpot, index) => isSelected 
+		.filter((scenicSpot, index) => isSelectedWithCategory 
 			? index < TourShowDataNumber.SelectScenicSpot * currentPage && index >= TourShowDataNumber.SelectScenicSpot * (currentPage - 1) 
-			: index < TourShowDataNumber.DefaultScenicSpot);
+			: index < TourShowDataNumber.DefaultScenicSpot * currentPage && index >= TourShowDataNumber.DefaultScenicSpot * (currentPage - 1));
 
 	const getCurrentTotalPage: () => number = () => {
 		const total = globalCategory === TourType.TourPlace 
@@ -115,7 +135,7 @@ export default function TourPlace () {
 								/>
 							: <TourNoData />
 					)}
-					{globalCategory && 
+					{totalPage > 1 && 
 						(filterTourScenicSpotList.length > 0 || filterTourActivityList.length > 0) && 
 							<Pagination currentTotalPage={totalPage}/>
 					}

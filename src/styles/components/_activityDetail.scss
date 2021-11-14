@@ -25,6 +25,11 @@
 		position: absolute;
 		top: 0;
 		right: -72px;
+
+		@include for-pad {
+			right: 0;
+			top: -72px;
+		}
 	}
 
 	.scenic-spot-pic {

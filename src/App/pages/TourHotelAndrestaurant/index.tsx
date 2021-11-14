@@ -21,11 +21,13 @@ import { TourType } from '../../../types';
 import { TourShowDataNumber } from '../../../types';
 import { TourNoData } from '../../components/TourNoData';
 
-export default function TourPlace () {
+export default function TourHotelAndrestaurant () {
 	const {
 		globalCategory,
 		globalCity,
 		globalKeyWord,
+		globalLat,
+		globalLng,
 	} = useGlobalParams();
 	const { currentPage } = usePagination();
 	const dispatch = useAppDispatch();
@@ -35,12 +37,22 @@ export default function TourPlace () {
 	const tourHotels = useAppSelector(selectTourHotels);
 	const defaultCity: string = 'Taichung';
 
-	const getTourFoods: (city?: string, top?: string) => void = (city, top) => {
-		dispatch(getTourFood({city, top}));
+	const getTourFoods: (
+		city?: string, 
+		top?: string, 
+		lat?: number | string,
+		lng?: number | string,
+		) => void = (city, top, lat, lng) => {
+		dispatch(getTourFood({city, top, lat, lng}));
 	};
 
-	const getTourHotels: (city?: string, top?: string) => void = (city, top) => {
-		dispatch(getTourHotel({city, top}));
+	const getTourHotels: (
+		city?: string,
+		top?: string,
+		lat?: number | string,
+		lng?: number | string,
+		) => void = (city, top, lat, lng) => {
+		dispatch(getTourHotel({city, top, lat, lng}));
 	};
 
 	useEffect(() => {
@@ -49,14 +61,15 @@ export default function TourPlace () {
 	}, []);
 
 	useEffect(() => {
-		if (globalCategory === TourType.TourHotel) {
+		if (globalCategory === TourType.TourHotel || (!globalCategory && (globalCity || (globalLng && globalLat)))) {
 			getTourHotels(globalCity);
 		}
-		if (globalCategory === TourType.TourFood) {
+		if (globalCategory === TourType.TourFood || (!globalCategory && (globalCity || (globalLng && globalLat)))) {
 			getTourFoods(globalCity);
 		}
-	}, [globalCity, globalCategory]);
+	}, [globalCity, globalCategory, globalLat, globalLng]);
 
+	const isSelectedWithoutCategory = !(globalCategory) && !(globalKeyWord || globalKeyWord);
 	const isSelected = !!(globalCity || globalKeyWord || globalKeyWord);
 
 	const filterTourFoodList = tourFoods
@@ -65,18 +78,18 @@ export default function TourPlace () {
 			(food.Description && food.Description.includes(globalKeyWord)) || 
 			(food.DescriptionDetail && food.DescriptionDetail.includes(globalKeyWord))
 			) : food)
-		.filter((food, index) => isSelected 
+		.filter((food, index) => !isSelectedWithoutCategory 
 			? index < currentPage * TourShowDataNumber.SelectFood && index >= (currentPage - 1 ) * TourShowDataNumber.SelectFood
-			: index < TourShowDataNumber.DefaultFood);
+			: index < TourShowDataNumber.DefaultFood * currentPage && index >= TourShowDataNumber.DefaultFood * (currentPage - 1));
 	const filterTourHotelList = tourHotels
 		.filter(hotel => globalKeyWord ? (
 			hotel.Name.includes(globalKeyWord) ||
 			(hotel.Description && hotel.Description.includes(globalKeyWord)) || 
 			(hotel.DescriptionDetail && hotel.DescriptionDetail.includes(globalKeyWord))
 			) : hotel)
-		.filter((hotel, index) => isSelected 
+		.filter((hotel, index) => !isSelectedWithoutCategory 
 			? index < TourShowDataNumber.SelectHotel * currentPage && index >= TourShowDataNumber.SelectHotel * (currentPage - 1)
-			: index < TourShowDataNumber.DefaultHotel);
+			: index < TourShowDataNumber.DefaultHotel * currentPage && index >= TourShowDataNumber.DefaultHotel * (currentPage - 1));
 
 	const getCurrentTotalPage: () => number = () => {
 		const total = globalCategory === TourType.TourFood 
@@ -108,7 +121,7 @@ export default function TourPlace () {
 								/>
 							: <TourNoData />
 					)}
-					{globalCategory && 
+					{totalPage > 1 && 
 						(filterTourFoodList.length > 0 || filterTourHotelList.length > 0) && 
 							<Pagination currentTotalPage={totalPage}/>
 					}

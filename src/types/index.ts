@@ -34,3 +34,8 @@ export enum TourShowDataNumber {
 	DefaultHotel = 10,
 	SelectHotel = 20,
 }
+
+export enum WindowWidth {
+	Pad = 768,
+	Mobile = 375,
+}

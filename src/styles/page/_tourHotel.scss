@@ -1,6 +1,10 @@
 .tour-restaurant,
 .tour-hotel {
   margin-bottom: 60px;
+
+  @include for-pad {
+    padding: 0 65px;
+  }
   h4 {
     max-width: 1060px;
     width: 100%;

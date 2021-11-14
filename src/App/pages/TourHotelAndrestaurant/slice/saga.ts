@@ -22,10 +22,12 @@ import {
 function* fetchHotelSaga (action: PayloadAction<{
   city?: string;
   top?: string;
+  lat?: number | string;
+	lng?: number | string;
 }>) {
   try {
-    const { city, top } = action.payload;
-    const response: ApiResponseType = yield call(fetchHotel, city, top);
+    const { city, top, lat, lng } = action.payload;
+    const response: ApiResponseType = yield call(fetchHotel, city, top, lat, lng);
 
     if (!response.success) {
       throw response.data;
@@ -39,10 +41,12 @@ function* fetchHotelSaga (action: PayloadAction<{
 function* fetchRestaurantSaga (action: PayloadAction<{
   city?: string;
   top?: string;
+  lat?: number | string;
+	lng?: number | string;
 }>) {
   try {
-    const { city, top } = action.payload;
-    const response: ApiResponseType = yield call(fetchRestaurant, city, top);
+    const { city, top, lat, lng } = action.payload;
+    const response: ApiResponseType = yield call(fetchRestaurant, city, top, lat, lng);
 
     if (!response.success) {
       throw response.data;

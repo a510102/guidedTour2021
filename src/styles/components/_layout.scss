@@ -1,4 +1,15 @@
 .app-header {
 	padding: 29px 108px 18px;
 	background: #fff;
+	
+	@include for-pad {
+		padding: 17px 40px;
+		box-shadow: 0px 4px 3px 0px #0D0B0C33;
+	}
+
+	@include for-mobile {
+		padding: 9.5px 31px;
+		border-radius: 6px;
+		margin: 40px 16px 12px;
+	}
 }

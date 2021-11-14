@@ -18,10 +18,12 @@ import {
 function* fetchScenicSpotSaga(action: PayloadAction<{
 	city?: string; 
 	top?: string;
+	lat?: number | string;
+	lng?: number | string;
 }>) {
 	try {
-		const { city, top } = action.payload;
-		const response: ApiResponseType = yield call(fetchScenicSpot, city, top);
+		const { city, top, lat, lng } = action.payload;
+		const response: ApiResponseType = yield call(fetchScenicSpot, city, top, lat, lng);
 		if (!response.success) {
 			throw response.data;
 		}
@@ -34,10 +36,12 @@ function* fetchScenicSpotSaga(action: PayloadAction<{
 function* fetchActivitySaga(action: PayloadAction<{
 	city?: string;
 	top?: string;
+	lat?: number | string;
+	lng?: number | string;
 }>) {
 	try {
-		const { city, top } = action.payload;
-		const response: ApiResponseType = yield call(fetchActivity, city, top);
+		const { city, top, lat, lng } = action.payload;
+		const response: ApiResponseType = yield call(fetchActivity, city, top, lat, lng);
 		if (!response.success) {
 			throw response.data;
 		}

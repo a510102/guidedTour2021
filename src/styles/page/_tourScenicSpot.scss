@@ -4,6 +4,13 @@ main {
 
 .tour-scenic-spot,
 .tour-activity {
+  @include for-pad {
+    padding: 0 65px;
+  }
+
+  @include for-mobile {
+    padding: 0 31px;
+  }
   h4 {
     max-width: 1060px;
     width: 100%;

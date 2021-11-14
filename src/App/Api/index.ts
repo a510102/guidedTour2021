@@ -35,7 +35,7 @@ const fetchData = async (
 	try {
 		const fetchOptions = {
 			body: JSON.stringify(data),
-			header: GetAuthorizationHeader(),
+			headers: GetAuthorizationHeader(),
 			method: method || 'GET',
 		};
 		const response = await fetch(`${url}${query}`, fetchOptions);
@@ -65,9 +65,11 @@ const fetchData = async (
 
 export const fetchScenicSpot = async (
 	city?: string, 
-	top?:string, 
+	top?: string,
+	lat?: number | string,
+	lng?: number | string,
 	) => {
-	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}`;
+	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}${lat && lng ? `&$spatialFilter=nearby(${lat}, ${lng}, 10000)`: ''}`;
 	console.log(query);
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/ScenicSpot${city ? `/${city}`: ''}`,
@@ -76,8 +78,13 @@ export const fetchScenicSpot = async (
 	return response;
 };
 
-export const fetchActivity = async (city?: string, top?:string) => {
-	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}`;
+export const fetchActivity = async (
+	city?: string, 
+	top?: string,
+	lat?: number | string,
+	lng?: number | string,
+	) => {
+	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}${lat && lng ? `&$spatialFilter=nearby(${lat}, ${lng}, 10000)`: ''}`;
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/Activity${city ? `/${city}`: ''}`,
 		query,
@@ -85,8 +92,13 @@ export const fetchActivity = async (city?: string, top?:string) => {
 	return response;
 };
 
-export const fetchRestaurant = async (city?: string, top?:string) => {
-	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}`;
+export const fetchRestaurant = async (
+	city?: string, 
+	top?: string,
+	lat?: number | string,
+	lng?: number | string,
+	) => {
+	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}${lat && lng ? `&$spatialFilter=nearby(${lat}, ${lng}, 10000)`: ''}`;
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/Restaurant${city ? `/${city}`: ''}`,
 		query,
@@ -94,11 +106,43 @@ export const fetchRestaurant = async (city?: string, top?:string) => {
 	return response;
 }
 
-export const fetchHotel = async (city?: string, top?:string) => {
-	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}`;
+export const fetchHotel = async (
+	city?: string,
+	top?: string,
+	lat?: number | string,
+	lng?: number | string,
+	) => {
+	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}${lat && lng ? `&$spatialFilter=nearby(${lat}, ${lng}, 10000)`: ''}`;
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/Hotel${city ? `/${city}`: ''}`,
 		query,
 	);
 	return response;
 }
+
+export const fetchBusStops = async (city?: string) => {
+	const query = `?$format=${DATA_TYPE}${city ? `&$filter=City eq '${city}'` : ''}`;
+	const response = await fetchData(
+		`${TOURISM_URL}/v2/Tourism/Bus/Route/TaiwanTrip`,
+		query,
+	);
+	return response;
+};
+
+export const fetchEstimatedTimeOfArrival = async (tripName: string) => {
+	const query = `?$format=${DATA_TYPE}`;
+	const response = await fetchData(
+		`${TOURISM_URL}/v2/Tourism/Bus/EstimatedTimeOfArrival/TaiwanTrip/${tripName}`,
+		query,
+	);
+	return response;
+};
+
+export const fetchRealTimeNearStop = async (tripName: string) => {
+	const query = `?$format=${DATA_TYPE}`;
+	const response = await fetchData(
+		`${TOURISM_URL}/v2/Tourism/Bus/RealTimeNearStop/TaiwanTrip/${tripName}`,
+		query,
+	);
+	return response;
+};

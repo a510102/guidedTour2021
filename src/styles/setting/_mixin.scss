@@ -1,0 +1,16 @@
+$viewPoint: (
+  pad: 768px,
+  mobile: 375px,
+);
+
+@mixin for-pad {
+  @media screen and (max-width: map-get($viewPoint, "pad")) {
+    @content;
+  }
+}
+
+@mixin for-mobile {
+  @media screen and (max-width: map-get($viewPoint, "mobile")) {
+    @content;
+  }
+}
