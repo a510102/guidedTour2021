@@ -1,0 +1,43 @@
+.selected-group {
+	padding: 8px 16px;
+	background: #fff;
+	border-radius: 6px;
+	position: relative;
+	cursor: pointer;
+	box-shadow: 0px 2px 4px 0px #0D0B0C33;
+}
+
+.selected-value {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.drop-down {
+		img{
+			transition: all 0.2s linear;
+			&.rotate {
+				transform: rotate(180deg);
+			}
+		}
+	}
+}
+
+.select-list {
+	box-sizing: border-box;
+	position: absolute;
+	top: calc(100% - 6px);
+	left: 0;
+	width: 100%;
+	background: #fff;
+	border-radius: 0 0 6px 6px;
+	max-height: 200px;
+	overflow: auto;
+	z-index: 3;
+	p {
+		padding: 8px 16px;
+		cursor: pointer;
+		&:last-of-type {
+			margin-bottom: 5px;
+		}
+	}
+}

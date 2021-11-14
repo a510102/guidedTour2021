@@ -1,0 +1,151 @@
+.hot-city {
+	margin-bottom: 60px;
+
+	@include for-pad {
+		margin-left: 65px;
+	}
+
+	@include for-mobile {
+		margin-left: 16px;
+	}
+
+	h4 {
+		width: 100%;
+		max-width: 1060px;
+		margin: 0 auto 12px;
+		
+		img {
+			display: inline-block;
+			margin-right: 8px;
+		}
+	}
+}
+
+.select-hot-city {
+	position: relative;
+	margin: auto;
+	width: 100%;
+	max-width: 1060px;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+	grid-template-areas:
+    "one two four five seven"
+    "one three four six seven";
+
+	@include for-pad {
+		overflow: auto;
+		grid-template-columns: repeat(10, 1fr);
+		grid-template-areas:
+    "one two four five seven eight nine eleven twelve fourteen"
+    "one three four six seven eight ten eleven thirteen fourteen";
+		&::-webkit-scrollbar{
+			display: none;
+		}
+		scrollbar-width: none;
+	}
+}
+
+.select-hot-city-btn {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 32px;
+	height: 32px;
+
+	img {
+		width: 100%;
+	}
+	&.pre {
+		left: -55px;
+	}
+	&.next {
+		right: -55px;
+	}
+}
+
+.hot-city-item {
+	background: #fff;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 202px;
+	height: 120px;
+	box-shadow: 0px 4px 3px 0px #0D0B0C33;
+	cursor: pointer;
+	.item-bg {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	p {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		z-index: 2;
+		color: #fff;
+	}
+
+	&:first-of-type,
+	&:nth-of-type(4),
+	&:nth-of-type(7) {
+		height: 245px;
+	}
+
+	&:first-of-type{
+		grid-area: one;
+	}
+	&:nth-of-type(2) {
+		grid-area: two;
+	}
+	&:nth-of-type(3) {
+		grid-area: three;
+	}
+	&:nth-of-type(4) {
+		grid-area: four;
+	}
+	&:nth-of-type(5) {
+		grid-area: five;
+	}
+	&:nth-of-type(6) {
+		grid-area: six;
+	}
+	@include for-pad {
+		&:nth-of-type(8),
+		&:nth-of-type(11),
+		&:nth-of-type(14){
+			height: 245px;
+		}
+		&:nth-of-type(7) {
+			grid-area: seven;
+		}
+		&:nth-of-type(8) {
+			grid-area: eight;
+		}
+		&:nth-of-type(9) {
+			grid-area: nine;
+		}
+		&:nth-of-type(10) {
+			grid-area: ten;
+		}
+		&:nth-of-type(11) {
+			grid-area: eleven;
+		}
+		&:nth-of-type(12) {
+			grid-area: twelve;
+		}
+		&:nth-of-type(13) {
+			grid-area: thirteen;
+		}
+	}
+	&:last-of-type {
+		grid-area: seven;
+		@include for-pad {
+			grid-area: fourteen;
+		}
+	}
+}

@@ -1,0 +1,33 @@
+main {
+  padding-bottom: 85px;
+}
+
+.tour-scenic-spot,
+.tour-activity {
+  @include for-pad {
+    padding: 0 65px;
+  }
+
+  @include for-mobile {
+    padding: 0 31px;
+  }
+  h4 {
+    max-width: 1060px;
+    width: 100%;
+    margin: 0 auto 12px;
+
+    img {
+      display: inline-block;
+      margin-right: 8px;
+    }
+  }
+} 
+
+.activity-card-list {
+  max-width: 1060px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

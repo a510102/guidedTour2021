@@ -1,0 +1,107 @@
+.activity-card {
+	width: 522px;
+	min-height: 228px;
+	display: flex;
+	padding: 16px;
+	box-shadow: 0px 4px 3px 0px #0D0B0C33;
+	box-sizing: border-box;
+	margin-bottom: 48px;
+	background: #fff;
+
+	@include for-pad {
+		width: 298px;
+		min-height: 120px;
+		padding: 12px;
+	}
+
+	@include for-mobile {
+		margin-bottom: 15px;
+	}
+
+	.card-img {
+		width: 187px;
+		height: 194px;
+		margin-right: 16px;
+
+		@include for-pad {
+			width: 92px;
+			height: 96px;
+		}
+
+		img {
+			width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+	}
+
+	.card-content {
+		width: 278px;
+		@include for-pad {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			width: 100%;
+		}
+	}
+
+	.card-description {
+		width: 278px;
+		margin-top: 14px;
+		font-size: 14px;
+		line-height: 21px;
+		color: #ACACAC;
+		overflow:hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 4; //行數
+		-webkit-box-orient: vertical;
+		white-space: normal;
+		margin-bottom: 14px;
+	}
+
+	.card-other-info {
+		display: flex;
+		width: 100%;
+		font-size: 14px;
+		line-height: 21px;
+
+		@include for-pad {
+			margin-top: auto;
+		}
+	}
+
+	.card-map {
+		display: flex;
+		align-items: center;
+		width: 50%;
+		min-width: 50%;
+		
+		@include for-pad {
+			width: 100%;
+			min-width: 100%;
+		}
+		span {
+			width: 88px;
+			overflow:hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			@include for-pad {
+				width: 100%;
+			}
+		}
+		img {
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			margin-right: 8px;
+		}
+	}
+
+	.card-btn {
+		padding: 9.5px 32px;
+		color: #ff1D6c;
+		border: 1px solid #ff1D6c;
+		border-radius: 8px;
+		cursor: pointer;
+	}
+}

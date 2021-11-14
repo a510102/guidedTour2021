@@ -10,6 +10,11 @@
 
 .header-links {
 	display: flex;
+
+	@include for-mobile {
+		justify-content: space-between;
+		width: 100%;
+	}
 }
 
 .header-link {
@@ -37,8 +42,29 @@
 		color: #007350;
 	}
 
+	@include for-mobile {
+		&.tour,
+		&.hotel,
+		&.traffic {
+			color: #acacac;
+		}
+	}
+
 	&:hover,
 	&.active {
 		text-decoration: underline;
+
+		@include for-mobile {
+			text-decoration: none;
+			&.tour {
+				color: #FF1D6C;
+			}
+			&.hotel {
+				color: #FFB72C;
+			}
+			&.traffic {
+				color: #007350;
+			}
+		}
 	}
 }
