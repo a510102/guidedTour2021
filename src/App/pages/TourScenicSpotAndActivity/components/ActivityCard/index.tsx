@@ -26,7 +26,6 @@ export function ActivityCard(props: Props) {
     Location,
   } = activity;
   const emptyInfo = '- -';
-  console.log(isMobile, isPad)
   
   return (
     <>

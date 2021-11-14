@@ -50,10 +50,6 @@ export const usePagination = () => {
 	}
 };
 
-export const useDistrictToCity = () => {
-	console.log(districes);
-}
-
 export const useCountDown = (sec: number) => {
 	const [countDownTime, setCountDownTime] = useState<number>(sec);
 	const [isStart, setIsStart] = useState<boolean>(false);

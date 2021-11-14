@@ -70,7 +70,6 @@ export const fetchScenicSpot = async (
 	lng?: number | string,
 	) => {
 	const query = `?$format=${DATA_TYPE}${top ? `&$top=${top}` : ''}${lat && lng ? `&$spatialFilter=nearby(${lat}, ${lng}, 10000)`: ''}`;
-	console.log(query);
 	const response = await fetchData(
 		`${TOURISM_URL}/v2/Tourism/ScenicSpot${city ? `/${city}`: ''}`,
 		query,

@@ -5,10 +5,12 @@ import { TourType } from '../../../types';
 import { Select } from '../Select';
 import cityList from '../../../localData/city.json';
 import { BuseStopType } from '../../pages/TourTraffic/slice/type';
-import { useMedia } from '../../../helpers';
+import { useMedia, useCountDown } from '../../../helpers';
 
 import bannerTitle from '../../../images/banner/banner-title.png';
-import bannerBg from '../../../images/banner/banner-bg.png';
+import bannerBg01 from '../../../images/banner/banner-bg-1.png';
+import bannerBg02 from '../../../images/banner/banner-bg-2.png';
+import bannerBg03 from '../../../images/banner/banner-bg-3.png';
 import searchIcon from '../../../images/banner/search.png';
 import locationIcon from '../../../images/banner/location.png';
 
@@ -43,11 +45,13 @@ export function Banner(props: Props) {
 		handleChangeLatLng,
 	} = props;
 	const { isPad, isMobile } = useMedia();
+	const { startCountDown, stopCountDown, countDownTime } = useCountDown(60)
 	const { pathname } = useLocation();
 	const [keyWord, setKeyWord] = useState<string>('');
 	const [city, setCity] = useState<string>('');
 	const [category, setCategory] = useState<string>('');
 	const [tripName, setTripName] = useState<string>('');
+	const [bannerImgIndex, setBannerImgIndex] = useState<number>(0);
 	const isMatchTraffic = !isMatchHome && !isMatchTourHotel;
 
 	const placeCategoryList = [
@@ -79,6 +83,8 @@ export function Banner(props: Props) {
 			value: TourType.TourHotel,
 		},
 	];
+
+	const bannerBgList = [bannerBg01, bannerBg02, bannerBg03];
 
 	const handleChangeInputKeyWord : (e: React.ChangeEvent<HTMLInputElement
 		>) => void = e => {
@@ -147,14 +153,28 @@ export function Banner(props: Props) {
 		setKeyWord('');
 	}, [pathname]);
 
+	useEffect(() => {
+		startCountDown()
+
+		return () => {
+			startCountDown();
+		}
+	}, []);
+
+	useEffect(() => {
+		if (countDownTime === 0) {
+			setBannerImgIndex(preBannerImgIndex => preBannerImgIndex === bannerBgList.length - 1 ? 0 : preBannerImgIndex + 1);
+			startCountDown();
+		}
+	}, [countDownTime, bannerBgList]);
+
 	return (
 		<div 
 			className={`banner ${isMatchTraffic && 'no-bg'}`}
 			style={(isMatchTraffic || isPad || isMobile) 
 				? {}
 				: {
-					background: `url(${bannerBg}) no-repeat center center`,
-					backgroundColor: '#fff',
+					background: `url(${bannerBgList[bannerImgIndex]}) no-repeat center center #fff`,
 			}}
 		>
 			<div className="banner-search">
