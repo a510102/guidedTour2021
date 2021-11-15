@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import {
 	useAppDispatch,
@@ -63,6 +64,9 @@ export default function TourTraffic () {
 
 	return (
 		<main>
+			<Helmet>
+				<title>Bus</title>
+			</Helmet>
 			{isFetching && currentBusActivity.length === 0
 				? <Loading /> 
 				: <BusStopInfo

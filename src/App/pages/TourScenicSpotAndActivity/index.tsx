@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import { HotCity } from '../../components/HotCity';
 import { Pagination } from '../../components/Pagination'; 
@@ -116,6 +117,9 @@ export default function TourScenicSpotAndActivity () {
 
 	return (
 		<main>
+			<Helmet>
+				<title>Scenic spot and Activity</title>
+			</Helmet>
 			{tourPlaceIsFetching ? (
 				<Loading /> ) : (
 				<>

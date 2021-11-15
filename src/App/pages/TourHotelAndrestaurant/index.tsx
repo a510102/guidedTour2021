@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import { Pagination } from '../../components/Pagination'; 
 import {
@@ -102,6 +103,9 @@ export default function TourHotelAndrestaurant () {
 
 	return (
 		<main>
+			<Helmet>
+				<title>Restaurant and Hotel</title>
+			</Helmet>
 			{tourPlaceIsFetching ? (
 				<Loading /> ) : (
 				<>
