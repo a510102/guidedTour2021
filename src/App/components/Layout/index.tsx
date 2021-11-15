@@ -94,7 +94,7 @@ export function Layout() {
 
 	return (
     <div className="app">
-        <header className="app-header">
+        <header className={`app-header ${!isMatchHome && !isMatchTourHotel && 'traffic'}`}>
           <Navigation />
         </header>
         <Banner 

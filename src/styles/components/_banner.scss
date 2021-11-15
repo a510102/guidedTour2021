@@ -34,6 +34,10 @@
 		.search-selected {
 			min-width: 536px;
 			margin: 35px 0;
+
+			@include for-mobile {
+				min-width: 100%;
+			}
 		}
 	}
 

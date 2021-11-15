@@ -16,11 +16,23 @@
     width: calc(100% - 52px);
   }
 
+  @include for-mobile {
+    padding-left: 0;
+    padding-right: 0;
+    background: unset;
+    height: auto;
+    flex-wrap: nowrap;
+  }
+
   .info-hint {
     color: #FF1D6C;
     position: absolute;
     top: -50px;
     right: 0;
+
+    @include for-mobile {
+      top: 0;
+    }
   }
 
   .no-data {
@@ -40,6 +52,10 @@
     display: flex;
     align-items: center;
     padding: 10.5px;
+
+    @include for-mobile {
+      min-width: 76px;
+    }
   } 
 }
 

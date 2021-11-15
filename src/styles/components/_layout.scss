@@ -4,12 +4,14 @@
 	
 	@include for-pad {
 		padding: 17px 40px;
-		box-shadow: 0px 4px 3px 0px #0D0B0C33;
+		box-shadow: none;
 	}
 
 	@include for-mobile {
-		padding: 9.5px 31px;
-		border-radius: 6px;
-		margin: 40px 16px 12px;
+		padding: 40px 16px 12px;
+		background: #F6F7FB;
+		&.traffic {
+			background: #fff;
+		}
 	}
 }

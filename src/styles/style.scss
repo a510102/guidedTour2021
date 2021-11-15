@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
 @import './setting/reset';
+@import './setting/mixin';
 
 html {
 	&.fixed {
@@ -18,10 +19,11 @@ button {
 	padding: 0;
 	cursor: pointer;
 }
+
 .app {
 	background: #F6F7FB;
 }
-@import './setting/mixin';
+
 
 @import './components/layout';
 @import './components/navigation';
