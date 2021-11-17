@@ -91,12 +91,9 @@ export function ActivityCardDetailCard(props: Props) {
 
 	useEffect(() => {
 		document.documentElement.classList.add('fixed');
-		document.body.classList.add('fixed');
 
 		return () => {
 			document.documentElement.classList.remove('fixed');
-			document.body.classList.remove('fixed');
-		
 		}
 	}, []);
 

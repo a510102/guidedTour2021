@@ -7,17 +7,15 @@ html {
 	height: 100vh;
 	height: calc(var(--vh, 1vh)* 100);
 	overflow: auto;
+	
 	&.fixed {
+		position: relative;
 		overflow: hidden;
 	}
 }
 
 body {
 	font-family: 'Noto Sans TC', sans-serif;
-
-	&.fixed {
-		overflow: hidden;
-	}
 }
 
 button {
