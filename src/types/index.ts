@@ -37,5 +37,5 @@ export enum TourShowDataNumber {
 
 export enum WindowWidth {
 	Pad = 768,
-	Mobile = 375,
+	Mobile = 400,
 }

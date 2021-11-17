@@ -3,6 +3,8 @@
 @import './setting/mixin';
 
 html {
+	width: 100vw;
+	height: 100vh;
 	&.fixed {
 		overflow: hidden;
 	}
