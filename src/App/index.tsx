@@ -1,6 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 
 import { Layout } from './components/Layout';
 import { TourScenicSpotAndActivity } from './pages/TourScenicSpotAndActivity/Loadable';
@@ -10,6 +11,18 @@ import { NotFound } from './pages/NotFound/Loadable';
 import { store } from '../store';
 
 function App() {
+  const countViewHeight = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+  useEffect(() => {
+    countViewHeight();
+    window.addEventListener('resize', () => countViewHeight());
+
+    return () => {
+      window.removeEventListener('resize', () => countViewHeight());
+    }
+  }, []);
   return (
     <HelmetProvider>
       <Helmet

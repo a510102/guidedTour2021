@@ -91,15 +91,18 @@ export function ActivityCardDetailCard(props: Props) {
 
 	useEffect(() => {
 		document.documentElement.classList.add('fixed');
+		document.body.classList.add('fixed');
 
 		return () => {
 			document.documentElement.classList.remove('fixed');
+			document.body.classList.remove('fixed');
+		
 		}
 	}, []);
 
 	return (
-		<div className="activity-card-detail-card-wrap">
-			<div className="activity-card-detail-cardd" onClick={handleClose}>
+		<div className="OpenTime-wrap">
+			<div className="OpenTimed" onClick={handleClose}>
 				<div className="card-container" onClick={e => e.stopPropagation()}>
 					<button className="close-btn" onClick={handleClose}>
 						<img src={closeIcon} alt="close detail card" />
